@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth theme-emerald">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>স্মৃতির ক্যানভাস — মুহিউদ্দীন মাআয</title>
+  <meta name="description" content="মুহিউদ্দীন মাআয-এর ব্যক্তিগত সাহিত্যিক ব্লগ, কিতাব তাক, ফিল্ড ডায়রি ও চিন্তার নিভৃত আঙিনা।">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%230B1F18'/><path d='M25 32 L50 44 L75 32 L75 68 L50 80 L25 68 Z' fill='none' stroke='%23D4AF37' stroke-width='4'/><path d='M50 44 L50 80' stroke='%23D4AF37' stroke-width='3'/><path d='M50 16 C40 25 40 35 50 40 C60 35 60 25 50 16 Z' fill='%2310B981'/></svg>">
+
+  <!-- PWA Manifest & Meta -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#081410">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="স্মৃতির ক্যানভাস">
+
+  <!-- Google Fonts: Hind Siliguri (Global Literary Standard), Amiri, Noto Serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Hind Siliguri"', 'sans-serif'],
+            serif: ['"Noto Serif Bengali"', '"Hind Siliguri"', '"Amiri"', 'serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+          },
+          colors: {
+            leaf: {
+              50: '#F2F8F5',
+              100: '#E1EFE8',
+              200: '#C2DFD2',
+              300: '#9BC7B5',
+              400: '#6EA992',
+              500: '#488A71',
+              600: '#346E58',
+              700: '#285544',
+              800: '#1F4235',
+              900: '#142E25',
+              950: '#0B1A14'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Global Typography Standard */
+    * {
+      font-family: 'Hind Siliguri', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 4 Distinct, Peaceful Themes */
+    /* Theme 1: Signature Serene Botanical Emerald (সাদামাটা সবুজ ও পাতার শান্ত পরিবেশ) */
+    :root, html.theme-emerald {
+      --bg-color: #081410;
+      --surface-color: #0D1E18;
+      --card-color: #122820;
+      --border-color: #1D3B30;
+      --text-color: #F1F6F3;
+      --muted-color: #8CA89C;
+      --accent-color: #D4AF37;
+      --leaf-tint: rgba(16, 185, 129, 0.08);
+      --dock-bg: rgba(13, 30, 24, 0.92);
+    }
+
+    /* Theme 2: Warm Daylight Paper (ক্লাসিক পেপার ও মৃদু জলপাই পাতা) */
+    html.theme-paper {
+      --bg-color: #FAF7F2;
+      --surface-color: #FFFFFF;
+      --card-color: #F5EFE6;
+      --border-color: #E2D9CC;
+      --text-color: #1B2922;
+      --muted-color: #697870;
+      --accent-color: #9A3412;
+      --leaf-tint: rgba(46, 117, 89, 0.04);
+      --dock-bg: rgba(255, 255, 255, 0.94);
+    }
+
+    /* Theme 3: Sepia Manuscript (সেপিয়া ও প্রাচীন কিতাব রিডার) */
+    html.theme-sepia {
+      --bg-color: #F3EBDD;
+      --surface-color: #EAE0D0;
+      --card-color: #E2D5C3;
+      --border-color: #D0C0AA;
+      --text-color: #332415;
+      --muted-color: #6E5743;
+      --accent-color: #854D0E;
+      --leaf-tint: rgba(133, 77, 14, 0.04);
+      --dock-bg: rgba(234, 224, 208, 0.94);
+    }
+
+    /* Theme 4: Midnight True Black (শান্ত রাতের অ্যামোলেড ব্ল্যাক) */
+    html.theme-night {
+      --bg-color: #020504;
+      --surface-color: #070F0C;
+      --card-color: #0E1A16;
+      --border-color: #182C24;
+      --text-color: #F4F7F5;
+      --muted-color: #899E95;
+      --accent-color: #34D399;
+      --leaf-tint: rgba(52, 211, 153, 0.06);
+      --dock-bg: rgba(7, 15, 12, 0.94);
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.35s ease, color 0.35s ease;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .theme-surface { background-color: var(--surface-color); }
+    .theme-card { background-color: var(--card-color); }
+    .theme-border { border-color: var(--border-color); }
+    .theme-text { color: var(--text-color); }
+    .theme-muted { color: var(--muted-color); }
+    .theme-accent { color: var(--accent-color); }
+    .theme-accent-bg { background-color: var(--accent-color); }
+
+    /* Botanical Leaf Vein Background Ambient Pattern */
+    .leaf-ambient-pattern {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.04;
+      background-image: radial-gradient(#10B981 0.75px, transparent 0.75px), radial-gradient(#D4AF37 0.75px, transparent 0.75px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
+
+    /* Floating Canvas Leaves */
+    #ambient-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-color); }
+    ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    ::selection {
+      background: rgba(212, 175, 55, 0.35);
+      color: inherit;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col pb-20 md:pb-0">
+
+  <!-- ===================================================================== -->
+  <!-- BOTANICAL LEAF TEXTURE & AMBIENT CANVAS -->
+  <!-- ===================================================================== -->
+  <div class="leaf-ambient-pattern" aria-hidden="true"></div>
+  <canvas id="ambient-particles" aria-hidden="true"></canvas>
+
+  <!-- ===================================================================== -->
+  <!-- 1. POETIC CINEMATIC REVEAL & % LOADER (শান্ত, রুচিশীল ও পরিচ্ছন্ন) -->
+  <!-- ===================================================================== -->
+  <div id="hollywood-splash" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#07130F] text-white transition-all duration-700 select-none overflow-hidden">
+    
+    <!-- Organic Leaf Ambient Glow (Soft and calming, NO DJ flashing!) -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-emerald-600/15 blur-3xl"></div>
+      <div class="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-emerald-500/10 blur-[100px]"></div>
+    </div>
+
+    <!-- Center Literary Plaque -->
+    <div class="relative z-10 flex flex-col items-center text-center px-6 max-w-sm w-full space-y-6">
+      
+      <!-- Open Canvas & Golden Leaf Nib Motif -->
+      <div class="relative group">
+        <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-[#0B1E17] to-[#143327] border border-amber-400/40 shadow-2xl flex items-center justify-center p-3 relative overflow-hidden">
+          <svg class="w-14 h-14 text-amber-300 drop-shadow-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Open Canvas / Notebook -->
+            <path d="M2 4v16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"></path>
+            <path d="M12 2v20"></path>
+            <!-- Leaf & Pen Nib Motif -->
+            <path d="M12 6 C15 9 15 13 12 16 C9 13 9 9 12 6 Z" fill="rgba(212,175,55,0.2)"></path>
+            <circle cx="12" cy="11" r="1.5" fill="#10B981"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <!-- App Title & Subtitle -->
+      <div class="space-y-1">
+        <h1 class="text-3xl font-bold font-sans tracking-tight text-amber-300">
+          স্মৃতির ক্যানভাস
+        </h1>
+        <p class="text-xs text-emerald-200/80 font-sans tracking-wide">
+          মুহিউদ্দীন মাআয · চিন্তা ও পাঠের শান্ত আঙিনা
+        </p>
+      </div>
+
+      <!-- Live Clean Percentage Loader -->
+      <div class="w-full space-y-2.5 font-sans">
+        <div class="flex items-center justify-between text-xs font-medium px-1">
+          <span id="splash-status-text" class="text-emerald-300/90 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>ক্যানভাস প্রস্তুত হচ্ছে...</span>
+          </span>
+          <span class="font-mono text-sm font-bold text-amber-300 tabular-nums">
+            <span id="splash-pct">0</span>%
+          </span>
+        </div>
+
+        <!-- Serene Organic Green Progress Bar -->
+        <div class="w-full h-2 rounded-full bg-emerald-950/90 border border-emerald-800/60 p-0.5 overflow-hidden">
+          <div id="splash-bar" class="h-full rounded-full bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-400 transition-all duration-100" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Quick Skip Button -->
+      <button type="button" id="skip-splash-btn" class="px-4 py-1.5 rounded-full border border-emerald-800 text-[11px] font-medium text-emerald-300/80 hover:text-amber-300 hover:border-amber-400/40 transition-colors cursor-pointer">
+        সরাসরি প্রবেশ করুন (Skip ✕)
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Top Sticky Reading Progress Bar (For Article Reading Mode) -->
+  <div id="article-progress-bar" class="fixed top-0 left-0 h-1 z-50 bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-500 transition-all duration-75 w-0 pointer-events-none"></div>
+
+  <!-- ===================================================================== -->
+  <!-- 2. SERENE, UNCLUTTERED HEADER (পরিচ্ছন্ন ও শান্ত হেডার) -->
+  <!-- ===================================================================== -->
+  <!-- NOTICE: NO cluttered "ক খ গ ঘ ঙ" buttons in this header! Only essential peaceful tools -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl border-b theme-border transition-colors duration-300" style="background-color: var(--dock-bg);">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-3">
+      
+      <!-- Brand Logo & Name -->
+      <a href="#home" id="brand-link" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0F281E] to-[#183B2E] border border-amber-400/30 flex items-center justify-center text-amber-300 shadow-sm group-hover:scale-105 transition-transform">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 4v16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"></path>
+            <path d="M12 2v20"></path>
+            <circle cx="12" cy="11" r="1.5" fill="#D4AF37"></circle>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-lg sm:text-xl font-bold font-sans tracking-tight text-amber-300">
+            স্মৃতির ক্যানভাস
+          </h1>
+          <p class="text-[10px] sm:text-[11px] theme-muted font-sans tracking-wide leading-none">
+            মুহিউদ্দীন মাআয
+          </p>
+        </div>
+      </a>
+
+      <!-- Center: Clear, Minimalist English Date & Live Chronometer -->
+      <div class="hidden md:flex items-center gap-2.5 px-3 py-1 rounded-xl theme-card border theme-border font-sans text-xs">
+        <!-- Prominent English Date -->
+        <span class="text-emerald-400 select-none">🗓️</span>
+        <span id="gemini-live-date" class="font-semibold theme-text font-sans tracking-tight">
+          Saturday, 10 October 2026
+        </span>
+        <span class="theme-muted opacity-40">|</span>
+        <!-- Minimalist Clock -->
+        <div class="inline-flex items-center gap-1 font-mono tabular-nums font-bold text-amber-300">
+          <span id="gemini-clock-hours">--</span>
+          <span class="text-amber-400 animate-pulse">:</span>
+          <span id="gemini-clock-minutes">--</span>
+          <span class="text-amber-400 animate-pulse">:</span>
+          <span id="gemini-clock-seconds" class="text-emerald-400">--</span>
+          <span id="gemini-clock-period" class="text-[10px] uppercase ml-0.5 opacity-80">--</span>
+        </div>
+      </div>
+
+      <!-- Right Action Tools (Minimalist, quiet, essential) -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        
+        <!-- Live Search Trigger -->
+        <button type="button" onclick="focusSearch()" class="p-2 rounded-xl border theme-border theme-card theme-muted hover:theme-text hover:border-amber-400/40 transition-colors cursor-pointer" title="অনুসন্ধান করুন" aria-label="Search">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
+
+        <!-- PWA Native Install Button (Working 1-click trigger) -->
+        <button type="button" id="header-install-btn" onclick="openInstallModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-xl font-medium border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/10 transition-colors cursor-pointer" title="মোবাইলে অ্যাপ হিসেবে ইনস্টল করুন">
+          <span>📲</span>
+          <span class="hidden sm:inline">অ্যাপ নামান</span>
+        </button>
+
+        <!-- 4-Mode Theme Switcher Button -->
+        <button type="button" id="theme-toggle-btn" onclick="cycleTheme()" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:theme-text transition-colors cursor-pointer text-xs" title="থিম পরিবর্তন করুন (সবুজ পাতা · দিন · সেপিয়া · রাত)">
+          <span id="theme-icon">🌿</span>
+          <span id="theme-label" class="hidden sm:inline font-medium">সবুজ পাতা</span>
+        </button>
+
+        <!-- Language Switcher Button -->
+        <button type="button" onclick="toggleLanguage()" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:theme-text transition-colors cursor-pointer text-xs" title="ভাষা পরিবর্তন (বাংলা / English)">
+          <span id="lang-label" class="font-bold text-amber-300">বাং</span>
+        </button>
+
+        <!-- Secret Author Studio Button (PIN: 1234) -->
+        <button type="button" onclick="openAuthorStudioModal()" class="p-2 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 transition-colors cursor-pointer" title="লেখক স্টুডিও (সিক্রেট পিন: ১২৩৪)" aria-label="Author Studio">
+          🔐
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Mobile Subheader for Date (Ensures mobile users also see English Date clearly) -->
+    <div class="md:hidden border-t theme-border px-4 py-1.5 flex items-center justify-between text-[11px] font-sans theme-muted">
+      <span id="mobile-live-date" class="font-medium text-emerald-300">Saturday, 10 October 2026</span>
+      <span id="mobile-live-clock" class="font-mono text-amber-300 font-bold">11:58 PM</span>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- 3. MAIN CONTENT CONTAINER -->
+  <!-- ===================================================================== -->
+  <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 py-5 sm:py-8 z-10 relative">
+
+    <!-- =================================================================== -->
+    <!-- VIEW A: HOME & ARTICLES FEED -->
+    <!-- =================================================================== -->
+    <div id="home-view" class="space-y-8 sm:space-y-10">
+
+      <!-- ================================================================= -->
+      <!-- SECTION 1: SERENE AUTHOR CARD (মুহিউদ্দীন মাআয) -->
+      <!-- ================================================================= -->
+      <section class="relative overflow-hidden rounded-3xl border theme-border theme-surface p-5 sm:p-7 shadow-lg">
+        
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
+          
+          <!-- Avatar Frame with Camera Edit Button -->
+          <div class="relative flex-shrink-0">
+            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden ring-2 ring-emerald-500/40 shadow-md bg-emerald-950/40">
+              <img id="author-avatar-img" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230B1C16'/><circle cx='50' cy='42' r='20' fill='%23D4AF37'/><path d='M20 85 C20 65 35 60 50 60 C65 60 80 65 80 85 Z' fill='%2310B981'/></svg>" alt="মুহিউদ্দীন মাআয" class="w-full h-full object-cover">
+            </div>
+            <!-- Upload/Change Photo Button -->
+            <button type="button" onclick="openAvatarModal()" class="absolute -bottom-1.5 -right-1.5 p-2 rounded-xl bg-amber-400 text-black shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer" title="ছবি পরিবর্তন করুন">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </button>
+          </div>
+
+          <!-- Author Info & Bio -->
+          <div class="flex-grow space-y-2.5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <div class="flex items-center justify-center sm:justify-start gap-2 flex-wrap">
+                  <h2 id="author-name-display" class="text-2xl sm:text-3xl font-bold font-sans text-amber-300">
+                    মুহিউদ্দীন মাআয
+                  </h2>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-semibold">
+                    ✓ ইসলামিক স্কলার
+                  </span>
+                  <button type="button" onclick="quickEditAuthorName()" class="text-xs theme-muted hover:text-amber-300 underline cursor-pointer ml-1" title="নাম সম্পাদনা">
+                    [নাম লিখুন ✎]
+                  </button>
+                </div>
+
+                <!-- Credential Badges -->
+                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 mt-1.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-400/10 text-amber-300 border border-amber-400/20">মাওলানা</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">দাওরায়ে হাদিস</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-purple-500/10 text-purple-300 border border-purple-500/20">লেখক</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-500/10 text-blue-300 border border-blue-500/20">সাংবাদিক (ourislam24.com)</span>
+                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-500/10 text-rose-300 border border-rose-500/20">শিক্ষক</span>
+                </div>
+              </div>
+
+              <!-- Social Connect Buttons -->
+              <div class="flex items-center justify-center sm:justify-end gap-1.5 pt-1 sm:pt-0 flex-wrap">
+                <a id="author-wa-link" href="https://wa.me/8801990537782" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#25D366] text-white text-[11px] font-bold hover:scale-105 transition-all">
+                  <span>WhatsApp</span>
+                </a>
+                <a id="author-fb-profile" href="https://www.facebook.com/profile.php?id=100014276491414" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#1877F2] text-white text-[11px] font-bold hover:scale-105 transition-all">
+                  <span>ফেসবুক</span>
+                </a>
+                <a id="author-fb-page" href="https://www.facebook.com/share/19apeVyoa9/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border theme-border theme-card theme-text text-[11px] font-medium hover:border-amber-400/40">
+                  <span>পেজ ↗</span>
+                </a>
+                <a href="https://ourislam24.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border theme-border theme-card text-amber-300 text-[11px] font-medium hover:border-amber-400/40">
+                  <span>ourislam24 ↗</span>
+                </a>
+              </div>
+            </div>
+
+            <p id="author-bio-display" class="theme-muted text-xs sm:text-sm font-sans leading-relaxed pt-0.5">
+              পড়াশোনা, পাঠাভ্যাস ও চিন্তা আমার দৈনন্দিন জীবনের অবিচ্ছেদ্য অংশ। এটি কোনো বাণিজ্যিক পোর্টাল নয়, বরং একজন মুগ্ধ পাঠকের নিভৃত পড়ার ঘর।
+            </p>
+
+            <div class="pt-2 flex flex-wrap items-center justify-center sm:justify-between gap-2 text-[11px] font-sans theme-muted border-t theme-border">
+              <div class="flex items-center gap-2">
+                <span>📚 <strong>৫</strong>টি রচনা</span>
+                <span>·</span>
+                <span>📖 <strong>২</strong>টি কিতাব তাকে</span>
+                <span>·</span>
+                <span class="text-emerald-400">⚡ অফলাইন সক্রিয়</span>
+              </div>
+              <button type="button" onclick="openAuthorStudioModal()" class="text-amber-300 hover:underline cursor-pointer">
+                লেখকের খাস খাতা ও স্টুডিও ✎
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 2: PRINCIPAL FEATURED ARTICLE (প্রধান নির্বাচিত রচনা) -->
+      <!-- ================================================================= -->
+      <section class="rounded-3xl border border-amber-400/30 theme-surface p-6 sm:p-8 shadow-md hover:border-amber-400/50 transition-all">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-sans font-bold bg-amber-400/10 text-amber-300 border border-amber-400/25">
+            <span>✨</span>
+            <span>প্রধান নির্বাচিত রচনা (ক-১)</span>
+          </div>
+          <div class="text-xs font-sans theme-muted flex items-center gap-2">
+            <span class="text-emerald-400 font-medium">ক. জুমা ও সীরাতের পাঠ</span>
+            <span>·</span>
+            <span class="text-amber-300 font-medium">Friday, 10 October 2026</span>
+          </div>
+        </div>
+
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold font-sans theme-text hover:text-amber-300 transition-colors leading-snug mb-2 cursor-pointer" onclick="openFullArticle('art_real_01')">
+          জুমার খুতবা ও সীরাতের পাঠ: পারস্য সম্রাটের বালা ও সাহাবায়ে কেরামের মর্যাদা
+        </h3>
+
+        <p class="text-xs sm:text-sm text-amber-300/80 font-sans mb-3">
+          বায়তুল মোকাররম ও সচিবালয় এলাকার জুমার স্মৃতি ও খুতবার সারাংশ
+        </p>
+
+        <p class="text-sm sm:text-base theme-muted font-sans leading-relaxed line-clamp-3 mb-5">
+          সাড়ে এগারোটায় মসজিদের ৪ ভাগের ৩ ভাগ মুসল্লীতে ভরপুর। শান্ত পরিবেশে নামাজ শেষ করেই চলে এলাম। এমনিতে শুক্রবারে সচিবালয়-পল্টন-বায়তুল মোকাররমে কয়েকশত পুলিশ মোতায়েন করা থাকে...
+        </p>
+
+        <div class="flex items-center justify-between pt-4 border-t theme-border">
+          <div class="flex items-center gap-1.5 text-xs theme-muted">
+            <span class="px-2 py-0.5 rounded bg-white/5 border theme-border">#জুমা</span>
+            <span class="px-2 py-0.5 rounded bg-white/5 border theme-border">#সীরাত</span>
+          </div>
+          <button type="button" onclick="openFullArticle('art_real_01')" class="px-4 py-2 rounded-xl bg-amber-400 text-black font-bold text-xs hover:bg-amber-300 transition-all cursor-pointer">
+            সম্পূর্ণ রচনাটি পড়ুন →
+          </button>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 3: ARTICLES LIBRARY WITH ELEGANT PILL FILTERS (ক-ঙ) -->
+      <!-- ================================================================= -->
+      <!-- HERE are the clean, fully-functional categories without cluttering header! -->
+      <section class="space-y-4">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span class="text-xs text-emerald-400 font-semibold tracking-wider uppercase">📑 বিষয়ভিত্তিক পাঠাগার</span>
+            <h3 class="text-xl sm:text-2xl font-bold font-sans theme-text">সকল রচনা ও চিন্তাপত্র</h3>
+          </div>
+
+          <!-- Real-Time Search Bar -->
+          <div class="relative w-full sm:w-64">
+            <input type="text" id="live-search-input" oninput="handleSearch(this.value)" placeholder="লেখা খুঁজুন..." class="w-full px-3.5 py-2 pl-9 rounded-xl border theme-border theme-card theme-text text-xs focus:outline-none focus:border-amber-400">
+            <svg class="w-3.5 h-3.5 text-emerald-400/60 absolute left-3 top-3 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <button type="button" id="clear-search-btn" onclick="clearSearch()" class="hidden absolute right-2.5 top-2.5 text-xs theme-muted hover:theme-text">✕</button>
+          </div>
+        </div>
+
+        <!-- Smooth Sliding Category Pill Tabs (Mobile Touch-Optimized) -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar text-xs font-sans">
+          <button type="button" onclick="filterCategory('all')" data-cat-tab="all" class="cat-pill-btn active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-amber-400 text-black cursor-pointer shadow-sm">
+            সব রচনা (৫)
+          </button>
+          <button type="button" onclick="filterCategory('cat_01')" data-cat-tab="cat_01" class="cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
+            ক. জুমা ও সীরাত
+          </button>
+          <button type="button" onclick="filterCategory('cat_02')" data-cat-tab="cat_02" class="cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
+            খ. কিতাব পাঠ
+          </button>
+          <button type="button" onclick="filterCategory('cat_03')" data-cat-tab="cat_03" class="cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
+            গ. ফিল্ড ডায়রি
+          </button>
+          <button type="button" onclick="filterCategory('cat_04')" data-cat-tab="cat_04" class="cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
+            ঘ. তাহকিক
+          </button>
+          <button type="button" onclick="filterCategory('cat_05')" data-cat-tab="cat_05" class="cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
+            ঙ. সমকালীন
+          </button>
+        </div>
+
+        <!-- 2-Column Clean Articles Grid -->
+        <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div id="no-articles-found" class="hidden text-center py-12 px-4 border theme-border rounded-2xl theme-card space-y-2">
+          <span class="text-3xl">🔍</span>
+          <p class="text-sm font-bold theme-text">কোনো রচনা পাওয়া যায়নি</p>
+          <button type="button" onclick="clearSearch()" class="px-3.5 py-1.5 rounded-xl bg-amber-400/20 text-amber-300 text-xs">সব লেখা দেখুন</button>
+        </div>
+
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 4: VIRTUAL BOOKSHELF (কিতাব তাক) -->
+      <!-- ================================================================= -->
+      <section id="bookshelf-section" class="rounded-3xl border theme-border theme-surface p-5 sm:p-7 space-y-4">
+        <div class="border-b theme-border pb-3">
+          <span class="text-xs text-emerald-400 font-semibold tracking-wider uppercase">📚 ব্যক্তিগত পাঠাগার</span>
+          <h3 class="text-xl font-bold font-sans theme-text">মুহিউদ্দীন মাআয-এর কিতাব তাক</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Book 1 -->
+          <div class="rounded-2xl border theme-border theme-card p-4 space-y-3">
+            <div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                চলমান পাঠ (Reading)
+              </span>
+              <h4 class="text-base font-bold font-sans theme-text mt-1">
+                দারুল উলুম দেওবন্দ কী জামে ওয়া মুখতাসার তারিখ
+              </h4>
+              <p class="text-xs text-amber-300/80 mt-0.5">
+                ড. মাওলানা মুহাম্মদুল্লাহ কাসেমী
+              </p>
+            </div>
+
+            <div class="space-y-1 font-sans text-xs theme-muted">
+              <div class="flex justify-between">
+                <span>৪০০ / ৮৫০ পৃষ্ঠা</span>
+                <span class="text-amber-300 font-bold">৪৭% সমাপ্ত</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-black/40 overflow-hidden border theme-border">
+                <div class="h-full bg-gradient-to-r from-emerald-500 to-amber-400" style="width: 47%;"></div>
+              </div>
+            </div>
+
+            <p class="text-xs theme-muted italic border-l-2 border-emerald-500/40 pl-2">
+              "মুফতি হুমায়ুন আইয়ুব সাহেবের থেকে এনেছি। পড়া শুরু করেছি তিন দিন হলো। নতুন অনেক বিষয় জানছি।"
+            </p>
+          </div>
+
+          <!-- Book 2 -->
+          <div class="rounded-2xl border theme-border theme-card p-4 space-y-3">
+            <div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                পড়ার ইচ্ছা (Wishlist)
+              </span>
+              <h4 class="text-base font-bold font-sans theme-text mt-1">
+                জুলাই কেন আমাদের লড়াই?
+              </h4>
+              <p class="text-xs text-amber-300/80 mt-0.5">
+                মাওলানা মামুনুল হক
+              </p>
+            </div>
+
+            <div class="space-y-1 font-sans text-xs theme-muted">
+              <div class="flex justify-between">
+                <span>২৫০ পৃষ্ঠা</span>
+                <span class="text-emerald-400">পড়ার অপেক্ষায়</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-black/40 overflow-hidden border theme-border">
+                <div class="h-full bg-amber-400/40" style="width: 5%;"></div>
+              </div>
+            </div>
+
+            <p class="text-xs theme-muted italic border-l-2 border-amber-400/40 pl-2">
+              "সম্প্রতি বইটার ওপর রিভিউ প্রতিযোগিতার আয়োজন করা হয়েছে। রাজনীতি গভীরভাবে উপলব্ধি করার সুযোগ হচ্ছে।"
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 5: LIVING QUOTES (জীবন্ত সাহিত্যিক বাণী) -->
+      <!-- ================================================================= -->
+      <section class="rounded-2xl border border-amber-400/25 theme-card p-5 sm:p-6 text-center space-y-2">
+        <span class="text-[11px] font-bold text-amber-300">🌿 লাইভ সাহিত্যিক বাণী</span>
+        <blockquote id="living-quote-text" class="text-lg sm:text-xl font-bold font-sans theme-text leading-relaxed">
+          "পৃথিবীর শ্রেষ্ঠ হাজার হাজার বুযুর্গের মর্যাদা একজন সাহাবীর সমান হবে না।"
+        </blockquote>
+        <cite id="living-quote-ref" class="block text-xs font-sans theme-muted not-italic">
+          — জুমার বয়ানের নির্যাস
+        </cite>
+        <button type="button" onclick="shuffleQuote()" class="text-xs theme-muted hover:text-amber-300 underline pt-1 cursor-pointer">
+          বাণী পরিবর্তন ↻
+        </button>
+      </section>
+
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- VIEW B: DEDICATED FULL ARTICLE READING VIEW -->
+    <!-- =================================================================== -->
+    <div id="reader-view" class="hidden space-y-6">
+      
+      <!-- Top Reading Controls -->
+      <div class="sticky top-14 z-30 flex items-center justify-between gap-2 p-2.5 rounded-2xl theme-surface border theme-border shadow-md backdrop-blur-xl">
+        <button type="button" onclick="closeArticleReader()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border theme-border text-xs font-semibold hover:border-amber-400 hover:text-amber-300 cursor-pointer">
+          <span>← সব লেখায় ফিরুন</span>
+        </button>
+
+        <div class="flex items-center gap-1.5">
+          <div class="flex items-center gap-1 border theme-border rounded-xl p-0.5 bg-white/5">
+            <button type="button" onclick="adjustFontSize(-2)" class="px-2 py-0.5 text-xs rounded hover:bg-white/10 cursor-pointer">A-</button>
+            <button type="button" onclick="resetFontSize()" class="px-2 py-0.5 text-xs font-bold rounded hover:bg-white/10 cursor-pointer">A</button>
+            <button type="button" onclick="adjustFontSize(2)" class="px-2 py-0.5 text-xs rounded hover:bg-white/10 cursor-pointer">A+</button>
+          </div>
+          <button type="button" onclick="window.print()" class="p-1.5 rounded-xl border theme-border theme-muted hover:theme-text cursor-pointer" title="প্রিন্ট">🖨️</button>
+          <button type="button" onclick="copyCurrentArticleLink()" class="p-1.5 rounded-xl border theme-border theme-muted hover:theme-text cursor-pointer" title="লিংক কপি">🔗</button>
+        </div>
+      </div>
+
+      <!-- Main Reading Parchment Card -->
+      <article class="rounded-3xl border theme-border theme-surface p-5 sm:p-10 shadow-xl space-y-6">
+        
+        <header class="space-y-3 border-b theme-border pb-6">
+          <div class="flex flex-wrap items-center gap-2 text-xs font-sans theme-muted">
+            <span id="article-category-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-medium"></span>
+            <span>·</span>
+            <time id="article-date-display" class="font-bold text-amber-300"></time>
+            <span>·</span>
+            <span id="article-word-time"></span>
+          </div>
+
+          <h2 id="article-title-display" class="text-2xl sm:text-3xl lg:text-4xl font-bold theme-text leading-tight font-sans"></h2>
+          <p id="article-subtitle-display" class="text-sm sm:text-base text-amber-300/80 italic"></p>
+
+          <div class="flex items-center gap-2.5 pt-2">
+            <div class="w-9 h-9 rounded-full overflow-hidden ring-1 ring-amber-400/40">
+              <img id="article-author-avatar" src="" alt="লেখক" class="w-full h-full object-cover">
+            </div>
+            <div class="text-xs font-sans">
+              <span id="article-author-name" class="font-bold theme-text block">মুহিউদ্দীন মাআয</span>
+              <span class="theme-muted">মাওলানা · দাওরায়ে হাদিস · শিক্ষক ও লেখক</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Article Body with Optimal Reading Font Size -->
+        <div id="article-body-content" class="prose max-w-none theme-text font-sans leading-relaxed space-y-5 text-base sm:text-lg select-text" style="font-size: 18px; line-height: 1.85;">
+        </div>
+
+        <div id="article-tags-container" class="flex flex-wrap gap-1.5 pt-4 border-t theme-border text-xs"></div>
+
+        <!-- Social Share Bar -->
+        <div class="pt-4 border-t theme-border flex items-center justify-between gap-3 text-xs">
+          <span class="text-emerald-400">✓ লেখাটি অফলাইনে সেভ রয়েছে</span>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="shareArticleFacebook()" class="px-3 py-1 rounded-lg bg-[#1877F2] text-white font-semibold cursor-pointer">ফেসবুক</button>
+            <button type="button" onclick="shareArticleWhatsApp()" class="px-3 py-1 rounded-lg bg-[#25D366] text-white font-semibold cursor-pointer">হোয়াটসঅ্যাপ</button>
+          </div>
+        </div>
+
+        <!-- Readers' Comments Section with Voice-to-Text -->
+        <section class="mt-8 pt-6 border-t theme-border space-y-4">
+          <h3 class="text-lg font-bold font-sans theme-text flex items-center justify-between">
+            <span>💬 পাঠক মন্তব্য ও ভাবনা</span>
+            <span id="comments-count-badge" class="text-xs font-normal theme-muted"></span>
+          </h3>
+
+          <div id="comments-list" class="space-y-2.5"></div>
+
+          <form id="comment-form" onsubmit="submitComment(event)" class="rounded-2xl border theme-border theme-card p-3.5 space-y-2.5">
+            <input type="text" id="commenter-name" required placeholder="আপনার নাম..." class="w-full px-3 py-1.5 text-xs rounded-xl border theme-border theme-surface theme-text focus:outline-none focus:border-amber-400">
+            <div class="relative">
+              <textarea id="comment-text" required rows="2" placeholder="আপনার পর্যবেক্ষণ..." class="w-full px-3 py-1.5 text-xs rounded-xl border theme-border theme-surface theme-text focus:outline-none focus:border-amber-400"></textarea>
+              <button type="button" onclick="startVoiceInput('comment-text', 'comment-voice-icon')" class="absolute right-2 bottom-2 px-2 py-0.5 rounded-lg bg-amber-400/20 text-amber-300 text-xs flex items-center gap-1 cursor-pointer">
+                <span id="comment-voice-icon">🎙️</span>
+                <span class="text-[10px]">ভয়েস</span>
+              </button>
+            </div>
+            <div class="flex justify-end">
+              <button type="submit" class="px-4 py-1.5 rounded-xl bg-amber-400 text-black font-bold text-xs hover:bg-amber-300 cursor-pointer">
+                মন্তব্য প্রকাশ করুন
+              </button>
+            </div>
+          </form>
+        </section>
+
+      </article>
+
+    </div>
+
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- 4. MOBILE NATIVE DOCK BAR (স্মার্টফোন বটম নেভিগেশন বার) -->
+  <!-- ===================================================================== -->
+  <!-- Dedicated mobile-friendly dock for seamless smartphone usage -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t theme-border backdrop-blur-2xl transition-colors" style="background-color: var(--dock-bg);">
+    <div class="max-w-md mx-auto px-2 py-2 flex items-center justify-around text-center">
+      
+      <!-- Home Button -->
+      <button type="button" onclick="closeArticleReader(); window.scrollTo({top:0, behavior:'smooth'});" class="flex flex-col items-center gap-0.5 text-amber-300 cursor-pointer">
+        <span class="text-lg">🏠</span>
+        <span class="text-[10px] font-bold">হোম</span>
+      </button>
+
+      <!-- Categories Sheet Button -->
+      <button type="button" onclick="scrollToCategories()" class="flex flex-col items-center gap-0.5 theme-muted hover:theme-text cursor-pointer">
+        <span class="text-lg">📑</span>
+        <span class="text-[10px] font-medium">বিভাগসমূহ</span>
+      </button>
+
+      <!-- Bookshelf Button -->
+      <a href="#bookshelf-section" class="flex flex-col items-center gap-0.5 theme-muted hover:theme-text">
+        <span class="text-lg">📚</span>
+        <span class="text-[10px] font-medium">বুকশেলফ</span>
+      </a>
+
+      <!-- Install App Button -->
+      <button type="button" onclick="openInstallModal()" class="flex flex-col items-center gap-0.5 text-emerald-400 cursor-pointer">
+        <span class="text-lg">📲</span>
+        <span class="text-[10px] font-bold">ইনস্টল</span>
+      </button>
+
+      <!-- Secret Studio Button -->
+      <button type="button" onclick="openAuthorStudioModal()" class="flex flex-col items-center gap-0.5 theme-muted hover:theme-text cursor-pointer">
+        <span class="text-lg">🔐</span>
+        <span class="text-[10px] font-medium">স্টুডিও</span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- ===================================================================== -->
+  <!-- 5. SECRET AUTHOR STUDIO MODAL (পিন: ১২৩৪) -->
+  <!-- ===================================================================== -->
+  <div id="author-studio-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md hidden select-none" role="dialog" aria-modal="true">
+    <div class="w-full max-w-2xl theme-surface border border-amber-400/40 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      
+      <div class="px-5 py-3.5 border-b theme-border flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🔐</span>
+          <div>
+            <h3 class="text-base font-bold font-sans text-amber-300">মুহিউদ্দীন মাআয — লেখক স্টুডিও</h3>
+            <p class="text-[10px] theme-muted">ব্যক্তিগত লেখা প্রকাশ, সম্পাদনা ও পূর্ণাঙ্গ নিয়ন্ত্রণ</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeAuthorStudioModal()" class="w-7 h-7 rounded-full border theme-border flex items-center justify-center theme-muted hover:theme-text cursor-pointer">✕</button>
+      </div>
+
+      <!-- Password Box -->
+      <div id="studio-auth-box" class="p-8 text-center space-y-3.5 max-w-xs mx-auto my-auto font-sans">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-xl text-amber-300">🔑</div>
+        <h4 class="text-sm font-bold theme-text">গোপন স্টুডিও পিন দিন</h4>
+        <p class="text-xs theme-muted">পিন কোড: <strong>1234</strong></p>
+        <input type="password" id="studio-password-input" placeholder="পিন লিখুন..." class="w-full px-3 py-2 text-center text-sm rounded-xl border theme-border theme-card theme-text focus:outline-none focus:border-amber-400 tracking-widest">
+        <button type="button" onclick="verifyStudioPassword()" class="w-full py-2 rounded-xl bg-amber-400 text-black font-bold text-xs hover:bg-amber-300 cursor-pointer">প্রবেশ করুন →</button>
+        <p id="studio-auth-error" class="text-xs text-rose-400 hidden">ভুল পিন! দয়া করে ১২৩৪ দিন।</p>
+      </div>
+
+      <!-- Unlocked Dashboard -->
+      <div id="studio-dashboard" class="hidden flex-grow flex flex-col overflow-hidden font-sans">
+        <div class="flex border-b theme-border text-xs font-semibold px-4 pt-1 bg-black/20">
+          <button type="button" onclick="switchStudioTab('write')" class="studio-tab-btn active px-3.5 py-2 border-b-2 border-amber-400 text-amber-300 cursor-pointer">✍️ নতুন লেখা প্রকাশ</button>
+          <button type="button" onclick="switchStudioTab('profile')" class="studio-tab-btn px-3.5 py-2 border-b-2 border-transparent theme-muted hover:theme-text cursor-pointer">👤 লেখক প্রোফাইল</button>
+          <button type="button" onclick="switchStudioTab('manage')" class="studio-tab-btn px-3.5 py-2 border-b-2 border-transparent theme-muted hover:theme-text cursor-pointer">📑 লেখা মুছুন</button>
+        </div>
+
+        <div class="p-5 overflow-y-auto space-y-4 flex-grow text-xs">
+          <!-- Tab: Write -->
+          <div id="tab-write-content" class="studio-tab-panel space-y-3">
+            <input type="text" id="new-art-title" placeholder="রচনার শিরোনাম..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text text-sm font-bold">
+            <div class="grid grid-cols-2 gap-2">
+              <input type="text" id="new-art-subtitle" placeholder="উপ-শিরোনাম..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
+              <select id="new-art-category" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
+                <option value="cat_01">ক. জুমা ও সীরাতের পাঠ</option>
+                <option value="cat_02">খ. কিতাব পাঠ পরবর্তী ভাবনা</option>
+                <option value="cat_03">গ. ফিল্ড ডায়রি ও ভ্রমণ কথা</option>
+                <option value="cat_04">ঘ. তাহকিক ও মনীষী সান্নিধ্য</option>
+                <option value="cat_05">ঙ. সমকালীন গ্রন্থালোচনা ও রাজনীতি</option>
+              </select>
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between items-center">
+                <span class="theme-muted">মূল বক্তব্য:</span>
+                <button type="button" onclick="startVoiceInput('new-art-content', 'write-voice-icon')" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1 cursor-pointer">
+                  <span id="write-voice-icon">🎙️</span><span>ভয়েস টাইপিং</span>
+                </button>
+              </div>
+              <textarea id="new-art-content" rows="6" placeholder="এখানে পূর্ণ লেখাটি লিখুন..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text leading-relaxed"></textarea>
+            </div>
+            <input type="text" id="new-art-tags" placeholder="ট্যাগ (কমা দিয়ে): চিন্তা, দেওবন্দ..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
+            <button type="button" onclick="publishNewArticle()" class="px-5 py-2.5 rounded-xl bg-amber-400 text-black font-bold cursor-pointer">🚀 সরাসরি প্রকাশ করুন</button>
+          </div>
+
+          <!-- Tab: Profile -->
+          <div id="tab-profile-content" class="studio-tab-panel hidden space-y-3">
+            <div class="grid grid-cols-2 gap-2">
+              <input type="text" id="edit-author-name" value="মুহিউদ্দীন মাআয" placeholder="নাম..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
+              <input type="text" id="edit-author-wa" value="+8801990537782" placeholder="WhatsApp..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
+            </div>
+            <textarea id="edit-author-bio" rows="3" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text"></textarea>
+            <button type="button" onclick="saveAuthorProfileChanges()" class="px-4 py-2 rounded-xl bg-amber-400 text-black font-bold cursor-pointer">✓ তথ্য সেভ করুন</button>
+          </div>
+
+          <!-- Tab: Manage -->
+          <div id="tab-manage-content" class="studio-tab-panel hidden space-y-2">
+            <div id="manage-articles-list" class="space-y-2"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 6. REAL PWA NATIVE INSTALL MODAL -->
+  <!-- ===================================================================== -->
+  <div id="install-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm hidden" role="dialog" aria-modal="true">
+    <div class="theme-surface border theme-border rounded-3xl max-w-sm w-full p-6 shadow-2xl relative text-center space-y-4">
+      <button type="button" onclick="closeInstallModal()" class="absolute top-4 right-4 text-xs theme-muted hover:theme-text cursor-pointer">✕</button>
+
+      <div class="w-16 h-16 mx-auto rounded-2xl border border-emerald-500/40 p-2 theme-card flex items-center justify-center text-amber-300">
+        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"></path><path d="M12 2v20"></path></svg>
+      </div>
+
+      <div class="space-y-1">
+        <h3 class="text-lg font-bold font-sans theme-text">স্মৃতির ক্যানভাস — অ্যাপ ইনস্টল</h3>
+        <p class="text-xs theme-muted">মোবাইলে বা পিসিতে ইনস্টল করে সম্পূর্ণ অফলাইনে পড়ুন</p>
+      </div>
+
+      <div class="space-y-2.5 font-sans text-xs">
+        <button type="button" id="native-pwa-btn" onclick="triggerPWAInstall()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-amber-400 text-black font-bold hover:opacity-90 active:scale-95 transition-all cursor-pointer">
+          📲 সরাসরি ১-ক্লিকে ইনস্টল করুন
+        </button>
+
+        <div class="text-left bg-white/5 border theme-border p-3 rounded-xl space-y-1 text-[11px] theme-muted">
+          <p class="font-bold theme-text">সহজ উপায়:</p>
+          <p>• <strong>অ্যান্ড্রয়েড (Chrome):</strong> উপরের বাটনে চাপ দিন বা ব্রাউজারের ৩-ডটে (⋮) গিয়ে "Add to Home screen" চাপুন।</p>
+          <p>• <strong>আইফোন (Safari):</strong> নিচের শেয়ার 📤 আইকনে চাপ দিয়ে "Add to Home Screen" বেছে নিন।</p>
+        </div>
+
+        <button type="button" onclick="copyCurrentArticleLink()" class="w-full py-2 rounded-xl border theme-border theme-card theme-muted hover:theme-text cursor-pointer">
+          🔗 স্থায়ী লিংক কপি করুন
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Avatar Modal -->
+  <div id="avatar-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm hidden" role="dialog" aria-modal="true">
+    <div class="theme-surface border theme-border rounded-2xl max-w-sm w-full p-5 shadow-2xl relative space-y-3 text-xs">
+      <button type="button" onclick="closeAvatarModal()" class="absolute top-3 right-3 theme-muted hover:theme-text">✕</button>
+      <h3 class="text-sm font-bold font-sans text-amber-300 text-center">প্রোফাইল ছবি পরিবর্তন</h3>
+      <div class="p-3.5 rounded-xl border border-dashed theme-border text-center space-y-2">
+        <label for="avatar-file-upload" class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-400 text-black font-bold">
+          <span>📷 ডিভাইস থেকে ছবি আপলোড</span>
+        </label>
+        <input type="file" id="avatar-file-upload" accept="image/*" class="hidden" onchange="handleAvatarFileUpload(event)">
+        <p class="text-[10px] theme-muted">ছবি নির্বাচন করলে স্বয়ংক্রিয়ভাবে সেভ হবে</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast-message" class="fixed bottom-20 md:bottom-6 right-6 z-50 px-4 py-2 rounded-xl bg-emerald-500 text-black font-bold text-xs shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none font-sans"></div>
+
+  <!-- ===================================================================== -->
+  <!-- 7. CORE SCRIPT ENGINE -->
+  <!-- ===================================================================== -->
+  <script>
+    // =======================================================================
+    // REAL AUTHOR STATE (Preserving Muhyiddin Maaz & Authentic Data)
+    // =======================================================================
+    const DEFAULT_AUTHOR = {
+      name: 'মুহিউদ্দীন মাআয', // Preserved directly from author's screenshot
+      title: 'মাওলানা, দাওরায়ে হাদিস, শিক্ষক, সাংবাদিক (ourislam24.com) ও চিন্তাশীল লেখক',
+      bio: 'পড়াশোনা, পাঠাভ্যাস ও চিন্তা আমার দৈনন্দিন জীবনের অবিচ্ছেদ্য অংশ। এটি কোনো বাণিজ্যিক পোর্টাল নয়, বরং একজন মুগ্ধ পাঠকের নিভৃত পড়ার ঘর।',
+      whatsapp: '+8801990537782',
+      facebookProfile: 'https://www.facebook.com/profile.php?id=100014276491414',
+      facebookPage: 'https://www.facebook.com/share/19apeVyoa9/',
+      portal: 'https://ourislam24.com',
+      avatar: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230B1C16"/><circle cx="50" cy="42" r="20" fill="%23D4AF37"/><path d="M20 85 C20 65 35 60 50 60 C65 60 80 65 80 85 Z" fill="%2310B981"/></svg>',
+    };
+
+    const REAL_CATEGORIES = {
+      'cat_01': { name: 'ক. জুমা ও সীরাতের পাঠ', tag: 'ক-১' },
+      'cat_02': { name: 'খ. কিতাব পাঠ পরবর্তী ভাবনা', tag: 'খ-১' },
+      'cat_03': { name: 'গ. ফিল্ড ডায়রি ও ভ্রমণ কথা', tag: 'গ-১' },
+      'cat_04': { name: 'ঘ. তাহকিক ও মনীষী সান্নিধ্য', tag: 'ঘ-১' },
+      'cat_05': { name: 'ঙ. সমকালীন গ্রন্থালোচনা ও রাজনীতি', tag: 'ঙ-১' }
+    };
+
+    // Authentic writings with English dates
+    const INITIAL_ARTICLES = [
+      {
+        id: 'art_real_01',
+        categoryId: 'cat_01',
+        title: 'জুমার খুতবা ও সীরাতের পাঠ: পারস্য সম্রাটের বালা ও সাহাবায়ে কেরামের মর্যাদা',
+        subtitle: 'বায়তুল মোকাররম ও সচিবালয় এলাকার জুমার স্মৃতি ও খুতবার সারাংশ',
+        date: 'Friday, 10 October 2026',
+        words: 238,
+        readTime: 2,
+        tags: ['#জুমা', '#সীরাত', '#সাহাবায়ে_কেরাম'],
+        excerpt: 'সাড়ে এগারোটায় মসজিদের ৪ ভাগের ৩ ভাগ মুসল্লীতে ভরপুর। শান্ত পরিবেশে নামাজ শেষ করেই চলে এলাম। এমনিতে শুক্রবারে সচিবালয়-পল্টন-বায়তুল মোকাররমে কয়েকশত পুলিশ মোতায়েন করা থাকে...',
+        content: `সাড়ে এগারোটায় মসজিদের ৪ ভাগের ৩ ভাগ মুসল্লীতে ভরপুর। শান্ত পরিবেশে নামাজ শেষ করেই চলে এলাম।
+
+এমনিতে শুক্রবারে সচিবালয়-পল্টন-বায়তুল মোকাররমে কয়েকশত পুলিশ মোতায়েন করা থাকে। আজ তাদেরকে একটু বেশি সতর্ক মনে হলো। অন্যদিন একপাশে সারিবদ্ধভাবে দাঁড়িয়ে থাকেন। আজ তারা গেটের কাছে এসে দুপাশে সারি সারি হয়ে দাঁড়িয়ে ছিলেন। মনে হচ্ছিল মুসল্লীদের ইস্তেকবালের জন্য দাঁড়িয়েছেন। বিষয়টা ভালো লাগলো। কারও কারও খারাপ লাগতে পারে পুলিশের ইস্তেকবাল বলে কথা!
+
+•
+
+জুমার বয়ানে সীরাতের ধারাবাহিক আলোচনা চলছে বিগত কয়েক সপ্তাহ ধরে।
+
+আজ বিষয় ছিল, নবীজী সাল্লাল্লাহু আলাইহি ওয়া সাল্লামের দাওয়াতি কার্যক্রমে দৃঢ়তা, ধৈর্যশীলতা ও সহনশীলতা। সেই সঙ্গে সাহাবায়ে কেরাম রাদিয়াল্লাহু আনহুমের দ্বীনী বিষয়ে অবিচলতা ও আপসহীনতা। হাজারও প্রতিকূলতার মধ্যে তাদের ত্যাগ-কোরবানি এবং আল্লাহ তায়ালার অপার মদদের ঘটনা। এখানে হিজরতের সময়কার গারে সাওরের সংক্ষিপ্ত বর্ণনা তুলে ধরেছেন।
+
+•
+
+নবীজী সাল্লাল্লাহু আলাইহি ওয়া সাল্লামের কথার সত্যতা তুলে ধরে হযরত সুরাকা রা.-কে দেওয়া প্রতিশ্রুতির কথা বলেছেন। 'সুরাকা! তুমি কেমন মনে করো? যেদিন পারস্য সম্রাটের বালা গনীমত হিসেবে তোমার হস্তগত হবে'। পরবর্তীতে নবীজীর ওফাতের পর হযরত ওমর রাদিআল্লাহু আনহুর খেলাফতকালে পারস্য বিজয় হয়। এবং তিনি ধনভাণ্ডার থেকে প্রতিশ্রুত সেই বালা খুঁজে সুরাকা রা.-কে দিয়েছেন।
+
+এখানে খতিব সাহেব সতর্ক করে বলেছেন, এর মানে ছেলেদের হাতে চুড়ি পরা বৈধ তা নয়। হযরত সুরাকা রা. বালা নিয়ে হাতে ব্যবহার করেননি। বিক্রি করে বা অন্যভাবে তা থেকে উপকৃত হয়েছেন।
+
+•
+
+শেষে সাহাবায়ে কেরামের মর্যাদার বিষয়ে বলেছেন, পৃথিবীর শ্রেষ্ঠ হাজার হাজার বুযুর্গের মর্যাদা একজন সাহাবীর সমান হবে না।`
+      },
+      {
+        id: 'art_real_02',
+        categoryId: 'cat_02',
+        title: 'দারুল উলুম দেওবন্দের ইতিহাস পাঠ: ৮০০ পৃষ্ঠার এক অনবদ্য সফর',
+        subtitle: 'ড. মুহাম্মদুল্লাহ কাসেমীর জামে ওয়া মুখতাসার তারিখ পাঠ পরবর্তী ভাবনা',
+        date: 'Tuesday, 6 October 2026',
+        words: 168,
+        readTime: 2,
+        tags: ['#দেওবন্দ', '#ইতিহাস', '#কিতাব_পাঠ'],
+        excerpt: 'দারুল উলুম দেওবন্দের ইতিহাস ও অবদান নিয়ে আমার আগ্রহ অনেক আগে থেকে। উপমহাদেশের ইসলামচর্চা থেকে শুরু করে শিক্ষা-সংস্কৃতি, রাজনীতি সবকিছুতেই অগ্রণী ভুমিকা পালন করেছেন এ পাঠশালার সূর্য-সন্তানেরা...',
+        content: `দারুল উলুম দেওবন্দের ইতিহাস ও অবদান নিয়ে আমার আগ্রহ অনেক আগে থেকে। উপমহাদেশের ইসলামচর্চা থেকে শুরু করে শিক্ষা-সংস্কৃতি, রাজনীতি সবকিছুতেই অগ্রণী ভুমিকা পালন করেছেন এ পাঠশালার সূর্য-সন্তানেরা। এখনও করেছেন।
+
+সংক্ষিপ্ত পরিসরে এই চেতনার গোড়া থেকে আজ অবধি জানার ইচ্ছা থেকে এটা নিয়ে বসেছি। দারুল উলুম দেওবন্দের মজলিসে শুরার তত্ত্বাবধানে শায়খুল হিন্দ একাডেমি থেকে প্রকাশিত নির্ভরযোগ্যগ্রন্থ এটি।
+
+মূল গ্রন্থ উর্দূ ভাষায়। নাম—"দারুল উলুম দেওবন্দ কী জামে ওয়া মুখতাসার তারিখ"। সংকলন করেছেন দেওবন্দেরই কৃতি সন্তান ড. মাওলানা মুহাম্মদুল্লাহ কাসেমী। সংক্ষিপ্ত তবে অনবদ্য, বেশ ঝরঝরে।
+
+•
+
+মিরপুরের আরজাবাদ মাদরাসার মুহতামিম মাওলানা বাহাউদ্দীন যাকারিয়া সাহেবের তত্ত্বাবধানে একটা টিম বাংলা অনুবাদের কাজ করেছে। আমার জালালাইনের বছর প্রকাশিত হয়েছে। ঘটনাক্রমে মোড়ক উন্মোচন অনুষ্ঠানেও উপস্থিত ছিলাম। কিন্তু সংগ্রহ করা হয়নি, পড়াও হয়নি।
+
+পরে শ্রদ্ধেয় মুফতি হুমায়ুন আইয়ুব সাহেবের থেকে ধার করে এনে রেখেছি কয়েক মাস আগে। পড়া শুরু করেছি তিন দিন হলো। নতুন অনেক বিষয় জানছি। কিছু ভুল ধারণা দূর হচ্ছে।
+
+•
+
+পৃষ্ঠা সংখ্যা আটশ'র বেশি। চারশ'র কাছাকাছি পড়া হয়েছে। বাকিটা শেষ করতে হবে হাতে সময় দুই দিন।`
+      },
+      {
+        id: 'art_real_03',
+        categoryId: 'cat_03',
+        title: 'বৃষ্টিভেজা রাতে সিলেট মহাসড়ক: টু-ওয়ে সড়ক ও মৃত্যুঝুঁকির স্মৃতি',
+        subtitle: 'ড্রাইভারের পাশে ইঞ্জিন কভারে বসে কাটানো একটি ভ্রমণ রাতের অভিজ্ঞতা',
+        date: 'Sunday, 27 September 2026',
+        words: 95,
+        readTime: 1,
+        tags: ['#ভ্রমণ', '#সিলেট', '#ডায়রি'],
+        excerpt: 'সিলেট ভ্রমণের সময় ওই অঞ্চলের রাস্তা দেখে আমিও অবাক হয়েছিলাম। দেশের এত গুরুত্বপূর্ণ সড়ক মাত্র ‘টু ওয়ে’র। আবার সেদিন গুড়িগুড়ি বৃষ্টি ছিল...',
+        content: `সিলেট ভ্রমণের সময় ওই অঞ্চলের রাস্তা দেখে আমিও অবাক হয়েছিলাম। দেশের এত গুরুত্বপূর্ণ সড়ক মাত্র ‘টু ওয়ে’র। আবার সেদিন গুড়িগুড়ি বৃষ্টি ছিল। মধ্যরাতের পর নিজের সিট ছেড়ে সামনে চলে আসলাম।
+
+সকাল পর্যন্ত ড্রাইভারের পাশে ইঞ্জিন কভারে বসে গল্প জুড়ে দিয়েছিলাম। শতশত বাস-ট্রাক-কাভার্ড ভ্যানের পাশ দিয়ে যাওয়ার সময় ভাবছিলাম, এই বৃষ্টিভেজা পিচ্ছিল ‘টু ওয়ে’তে নিরাপদ যাত্রার নিশ্চয়তা কতটুকু।
+
+•
+
+আজ এ দুর্ঘটনা দেখে সে রাতের কথা মনে পড়লো। নিচের তথ্যগুলো সব সঠিক কিনা জানিনা। তবে এসব ত্রুটিগুলো মাঝে মাঝে সামনে আসে। এর কোনো প্রতিকার বা সুষ্ঠু সমাধান আছে কি?`
+      },
+      {
+        id: 'art_real_04',
+        categoryId: 'cat_04',
+        title: 'সুলহে হুদায়বিয়া: ইজতিহাদী নাকি ওহী? হযরত আব্দুল মালেক সাহেবের সান্নিধ্যে',
+        subtitle: 'ফিকহ ও সিরাত গবেষণার একটি গভীর পর্যবেক্ষণ',
+        date: 'Monday, 17 August 2026',
+        words: 47,
+        readTime: 1,
+        tags: ['#তাহকিক', '#হুদায়বিয়া', '#আব্দুল_মালেক_সাহেব'],
+        excerpt: 'তখন আব্দুল মালেক সাহেব বললেন, আমার সতর্কতার জন্য তো এতটুকুই যথেষ্ট। বাকি আরো দেখা যেতে পারে,,,, কিন্তু হুজুরের কথা রক্ষার্থে যখন ঘাঁটাঘাঁটি শুরু করি...',
+        content: `তখন আব্দুল মালেক সাহেব বললেন, আমার সতর্কতার জন্য তো এতটুকুই যথেষ্ট। বাকি আরো দেখা যেতে পারে,,,,
+
+.
+
+কিন্তু হুজুরের কথা রক্ষার্থে যখন ঘাঁটাঘাঁটি শুরু করি তখন দেখি, সুলহে হুদাইবিয়া ইজতেহাদী না ওহী এই বিষয়ে পূর্ববর্তীদের অনেকেই আলোচনা করেছেন। ওহী হওয়ার পক্ষে যেমন মতামত আছে তেমন ইজতেহাদী হওয়ার পক্ষেও মতামত আছে,,,,`
+      },
+      {
+        id: 'art_real_05',
+        categoryId: 'cat_05',
+        title: '‘জুলাই কেন আমাদের লড়াই?’ এবং আমাদের তরুণ প্রজন্মের পঠনধারা',
+        subtitle: 'মাওলানা মামুনুল হক সাহেবের গ্রন্থের রিভিউ প্রতিযোগিতা ও আব্দুল্লাহর পাঠ',
+        date: 'Thursday, 16 July 2026',
+        words: 70,
+        readTime: 1,
+        tags: ['#বই_পর্যালোচনা', '#জুলাই_লড়াই', '#রাজনীতি'],
+        excerpt: 'জুলাই কেন আমাদের লড়াই? মাওলানা মামুনুল হক সাহেবের সদ্য প্রকাশিত একটি গ্রন্থনা। সম্প্রতি বইটার উপর রিভিউ প্রতিযোগিতার ব্যবস্থা করা হয়েছে...',
+        content: `জুলাই কেন আমাদের লড়াই? মাওলানা মামুনুল হক সাহেবের সদ্য প্রকাশিত একটি গ্রন্থনা।
+
+সম্প্রতি বইটার উপর রিভিউ প্রতিযোগিতার ব্যবস্থা করা হয়েছে। এটা একটা ভালো উদ্যোগ। এ সুযোগে অনেকে বইটা গভীর মনোযোগে আগাগোড়া পড়ছে। এতে করে পাঠকের সমাজ-রাষ্ট্র-রাজনীতিকে গভীরভাবে উপলব্ধি করার সুযোগ হচ্ছে। দূর্ভাগ্য! আমার এখনও পড়া হয়নি বইটা।
+
+•
+
+নিচের লেখাটি লিখেছে আবদুল্লাহ। রাজনীতি নিয়ে তার আগ্রহ আছে। এই পঠনধারা বজায় থাকুক। জানার পরিধি বাড়ুক। জাতির কল্যাণে এগিয়ে যাক সেই কামনায়,,,,`
+      }
+    ];
+
+    const REAL_QUOTES = [
+      { text: "পৃথিবীর শ্রেষ্ঠ হাজার হাজার বুযুর্গের মর্যাদা একজন সাহাবীর সমান হবে না।", source: "জুমার বয়ানের নির্যাস" },
+      { text: "রাজনীতি নিয়ে পঠনধারা বজায় থাকুক। জানার পরিধি বাড়ুক। জাতির কল্যাণে এগিয়ে যাক সেই কামনায়।", source: "স্মৃতির ক্যানভাস" }
+    ];
+
+    function getStoredArticles() {
+      const saved = localStorage.getItem('canvas_articles');
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+      return INITIAL_ARTICLES;
+    }
+
+    function setStoredArticles(articles) {
+      localStorage.setItem('canvas_articles', JSON.stringify(articles));
+    }
+
+    function getAuthorProfile() {
+      const saved = localStorage.getItem('canvas_author');
+      if (saved) {
+        try { return { ...DEFAULT_AUTHOR, ...JSON.parse(saved) }; } catch (e) {}
+      }
+      return DEFAULT_AUTHOR;
+    }
+
+    function setAuthorProfile(profile) {
+      localStorage.setItem('canvas_author', JSON.stringify(profile));
+    }
+
+    // =======================================================================
+    // 1. POETIC CINEMATIC SPLASH LOADER (Smooth % Counter)
+    // =======================================================================
+    let splashPercent = 0;
+    const splashEl = document.getElementById('hollywood-splash');
+    const splashPct = document.getElementById('splash-pct');
+    const splashBar = document.getElementById('splash-bar');
+    const splashStatus = document.getElementById('splash-status-text');
+
+    const splashStages = [
+      { max: 30, text: 'ক্যানভাসের শুভ সূচনা...' },
+      { max: 70, text: 'পাতার সুবাস ও হরফ বিন্যাস...' },
+      { max: 95, text: 'সাহিত্যিক আঙিনা প্রস্তুত...' },
+      { max: 100, text: 'স্বাগতম!' }
+    ];
+
+    function runSplash() {
+      splashPercent = 0;
+      const timer = setInterval(() => {
+        splashPercent += Math.floor(Math.random() * 8) + 5;
+        if (splashPercent >= 100) {
+          splashPercent = 100;
+          clearInterval(timer);
+          setTimeout(finishSplash, 250);
+        }
+
+        if (splashPct) splashPct.textContent = splashPercent;
+        if (splashBar) splashBar.style.width = splashPercent + '%';
+
+        const stage = splashStages.find(s => splashPercent <= s.max);
+        if (stage && splashStatus) {
+          splashStatus.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span><span>${stage.text}</span>`;
+        }
+      }, 55);
+    }
+
+    function finishSplash() {
+      if (!splashEl) return;
+      splashEl.style.opacity = '0';
+      splashEl.style.transform = 'scale(1.05)';
+      setTimeout(() => {
+        splashEl.style.display = 'none';
+      }, 600);
+    }
+
+    document.getElementById('skip-splash-btn')?.addEventListener('click', finishSplash);
+
+    // =======================================================================
+    // 2. LIVE ENGLISH DATE & CHRONOMETER ENGINE
+    // =======================================================================
+    const EN_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const EN_DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+    function padZero(num) { return num < 10 ? '0' + num : num.toString(); }
+
+    function updateLiveClock() {
+      const now = new Date();
+      // Crystal-clear English Date
+      const dayName = EN_DAYS[now.getDay()];
+      const dateNum = now.getDate();
+      const monthName = EN_MONTHS[now.getMonth()];
+      const year = now.getFullYear();
+      const formattedDate = `${dayName}, ${dateNum} ${monthName} ${year}`;
+
+      const dateEl = document.getElementById('gemini-live-date');
+      const mobileDateEl = document.getElementById('mobile-live-date');
+      if (dateEl && dateEl.textContent !== formattedDate) dateEl.textContent = formattedDate;
+      if (mobileDateEl && mobileDateEl.textContent !== formattedDate) mobileDateEl.textContent = formattedDate;
+
+      // Clock
+      let hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      const period = hours >= 12 ? 'PM' : 'AM';
+      const hours12 = hours % 12 || 12;
+
+      const hStr = padZero(hours12);
+      const mStr = padZero(minutes);
+      const sStr = padZero(seconds);
+
+      const hEl = document.getElementById('gemini-clock-hours');
+      const mEl = document.getElementById('gemini-clock-minutes');
+      const sEl = document.getElementById('gemini-clock-seconds');
+      const pEl = document.getElementById('gemini-clock-period');
+      const mobileClockEl = document.getElementById('mobile-live-clock');
+
+      if (hEl) hEl.textContent = hStr;
+      if (mEl) mEl.textContent = mStr;
+      if (sEl) sEl.textContent = sStr;
+      if (pEl) pEl.textContent = period;
+      if (mobileClockEl) mobileClockEl.textContent = `${hStr}:${mStr}:${sStr} ${period}`;
+    }
+
+    setInterval(updateLiveClock, 1000);
+    updateLiveClock();
+
+    // =======================================================================
+    // 3. 4-MODE THEME SYSTEM (Serene Botanical Green, Paper, Sepia, Night)
+    // =======================================================================
+    const THEMES = ['theme-emerald', 'theme-paper', 'theme-sepia', 'theme-night'];
+    const THEME_NAMES = {
+      'theme-emerald': { label: 'সবুজ পাতা', icon: '🌿' },
+      'theme-paper': { label: 'দিন', icon: '☀️' },
+      'theme-sepia': { label: 'সেপিয়া', icon: '📜' },
+      'theme-night': { label: 'রাত', icon: '🌙' }
+    };
+
+    function applyTheme(themeClass) {
+      document.documentElement.classList.remove(...THEMES);
+      document.documentElement.classList.add(themeClass);
+      localStorage.setItem('canvas_theme', themeClass);
+
+      const info = THEME_NAMES[themeClass] || THEME_NAMES['theme-emerald'];
+      const themeIcon = document.getElementById('theme-icon');
+      const themeLabel = document.getElementById('theme-label');
+      if (themeIcon) themeIcon.textContent = info.icon;
+      if (themeLabel) themeLabel.textContent = info.label;
+    }
+
+    function cycleTheme() {
+      let current = localStorage.getItem('canvas_theme') || 'theme-emerald';
+      const idx = THEMES.indexOf(current);
+      const next = THEMES[(idx + 1) % THEMES.length];
+      applyTheme(next);
+      showToast(`থিম: ${THEME_NAMES[next].label}`);
+    }
+
+    applyTheme(localStorage.getItem('canvas_theme') || 'theme-emerald');
+
+    // Language Toggle
+    function toggleLanguage() {
+      const current = localStorage.getItem('canvas_lang') || 'bn';
+      const next = current === 'bn' ? 'en' : 'bn';
+      localStorage.setItem('canvas_lang', next);
+      const label = document.getElementById('lang-label');
+      if (label) label.textContent = next === 'bn' ? 'বাং' : 'EN';
+      showToast(next === 'bn' ? 'বাংলা ভাষা সক্রিয়' : 'English Mode Active');
+    }
+
+    // =======================================================================
+    // 4. ARTICLES RENDERING & CATEGORY PILL FILTERING
+    // =======================================================================
+    let currentCategoryFilter = 'all';
+    let currentSearchTerm = '';
+
+    function renderArticlesGrid() {
+      const container = document.getElementById('articles-grid');
+      const noFound = document.getElementById('no-articles-found');
+      if (!container) return;
+
+      const all = getStoredArticles();
+      let filtered = all;
+
+      if (currentCategoryFilter !== 'all') {
+        filtered = filtered.filter(a => a.categoryId === currentCategoryFilter);
+      }
+
+      if (currentSearchTerm.trim()) {
+        const q = currentSearchTerm.toLowerCase();
+        filtered = filtered.filter(a => 
+          a.title.toLowerCase().includes(q) ||
+          a.content.toLowerCase().includes(q) ||
+          (a.tags && a.tags.some(t => t.toLowerCase().includes(q)))
+        );
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        noFound?.classList.remove('hidden');
+        return;
+      }
+
+      noFound?.classList.add('hidden');
+      container.innerHTML = filtered.map(art => {
+        const cat = REAL_CATEGORIES[art.categoryId] || { name: 'সাধারণ' };
+        return `
+          <article class="group rounded-2xl border theme-border theme-surface p-4 sm:p-5 shadow-sm hover:border-amber-400/40 hover:-translate-y-1 transition-all cursor-pointer flex flex-col justify-between" onclick="openFullArticle('${art.id}')">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between text-xs theme-muted">
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-medium text-[11px]">${cat.name}</span>
+                <span class="text-[11px] font-sans text-amber-300/90">${art.date}</span>
+              </div>
+              <h4 class="text-base sm:text-lg font-bold font-sans theme-text group-hover:text-amber-300 transition-colors leading-snug">
+                ${art.title}
+              </h4>
+              <p class="text-xs sm:text-sm theme-muted line-clamp-2 leading-relaxed">
+                ${art.excerpt || art.content.slice(0, 120) + '...'}
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t theme-border flex items-center justify-between text-xs">
+              <span class="theme-muted text-[11px]">${art.readTime} মিনিটে পাঠ্য</span>
+              <button type="button" onclick="event.stopPropagation(); openFullArticle('${art.id}')" class="px-3 py-1 rounded-full bg-amber-400 text-black font-bold text-xs hover:bg-amber-300 transition-colors cursor-pointer">
+                পড়ুন →
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function filterCategory(catId) {
+      currentCategoryFilter = catId;
+      document.querySelectorAll('.cat-pill-btn').forEach(btn => {
+        const id = btn.getAttribute('data-cat-tab');
+        if (id === catId) {
+          btn.className = 'cat-pill-btn active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-amber-400 text-black cursor-pointer shadow-sm';
+        } else {
+          btn.className = 'cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer';
+        }
+      });
+      renderArticlesGrid();
+    }
+
+    function scrollToCategories() {
+      closeArticleReader();
+      const el = document.querySelector('.cat-pill-btn');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function handleSearch(val) {
+      currentSearchTerm = val;
+      const clearBtn = document.getElementById('clear-search-btn');
+      if (val.trim()) clearBtn?.classList.remove('hidden');
+      else clearBtn?.classList.add('hidden');
+      renderArticlesGrid();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('live-search-input');
+      if (input) input.value = '';
+      currentSearchTerm = '';
+      document.getElementById('clear-search-btn')?.classList.add('hidden');
+      renderArticlesGrid();
+    }
+
+    function focusSearch() {
+      closeArticleReader();
+      const input = document.getElementById('live-search-input');
+      if (input) {
+        input.scrollIntoView({ behavior: 'smooth' });
+        input.focus();
+      }
+    }
+
+    // =======================================================================
+    // 5. FULL ARTICLE READER
+    // =======================================================================
+    let currentArticleId = null;
+
+    function openFullArticle(id) {
+      const articles = getStoredArticles();
+      const article = articles.find(a => a.id === id);
+      if (!article) return;
+
+      currentArticleId = id;
+      const author = getAuthorProfile();
+      const cat = REAL_CATEGORIES[article.categoryId] || { name: 'সাধারণ' };
+
+      document.getElementById('article-category-badge').textContent = cat.name;
+      document.getElementById('article-date-display').textContent = article.date;
+      document.getElementById('article-word-time').textContent = `${article.words} শব্দ · ${article.readTime} মিনিটে পাঠ্য`;
+      document.getElementById('article-title-display').textContent = article.title;
+      document.getElementById('article-subtitle-display').textContent = article.subtitle || '';
+      document.getElementById('article-author-name').textContent = author.name || 'মুহিউদ্দীন মাআয';
+      document.getElementById('article-author-avatar').src = author.avatar;
+
+      const paragraphs = article.content.split('\n\n');
+      const bodyHtml = paragraphs.map(p => {
+        p = p.trim();
+        if (p === '•' || p === '.') {
+          return `<div class="text-center text-amber-400 font-bold tracking-widest my-4">✦  ✦  ✦</div>`;
+        }
+        if (p.startsWith("'") || p.startsWith('"') || p.startsWith('‘') || p.startsWith('“')) {
+          return `<blockquote class="p-3 my-3 border-l-4 border-amber-400 bg-amber-400/5 rounded-r-xl italic">${p}</blockquote>`;
+        }
+        return `<p class="leading-relaxed mb-3">${p}</p>`;
+      }).join('');
+
+      document.getElementById('article-body-content').innerHTML = bodyHtml;
+
+      const tagsContainer = document.getElementById('article-tags-container');
+      tagsContainer.innerHTML = (article.tags || []).map(t => `<span class="px-2.5 py-0.5 rounded-md bg-white/5 border theme-border theme-muted">${t}</span>`).join('');
+
+      loadArticleComments(id);
+
+      document.getElementById('home-view').classList.add('hidden');
+      document.getElementById('reader-view').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function closeArticleReader() {
+      document.getElementById('reader-view').classList.add('hidden');
+      document.getElementById('home-view').classList.remove('hidden');
+      currentArticleId = null;
+      document.getElementById('article-progress-bar').style.width = '0%';
+    }
+
+    // Scroll Progress
+    window.addEventListener('scroll', () => {
+      const bar = document.getElementById('article-progress-bar');
+      if (!currentArticleId || !bar) return;
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const pct = height > 0 ? (winScroll / height) * 100 : 0;
+      bar.style.width = pct + '%';
+    });
+
+    // Font Scaler
+    let readerFontSize = 18;
+    function adjustFontSize(delta) {
+      readerFontSize = Math.min(26, Math.max(14, readerFontSize + delta));
+      const el = document.getElementById('article-body-content');
+      if (el) el.style.fontSize = readerFontSize + 'px';
+    }
+    function resetFontSize() {
+      readerFontSize = 18;
+      const el = document.getElementById('article-body-content');
+      if (el) el.style.fontSize = '18px';
+    }
+
+    // Social Sharing
+    function shareArticleFacebook() {
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+    }
+    function shareArticleWhatsApp() {
+      const t = document.getElementById('article-title-display')?.textContent || '';
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(t + ' ' + window.location.href)}`, '_blank');
+    }
+    function copyCurrentArticleLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => showToast('✓ লিংক কপি হয়েছে!'));
+    }
+
+    // Comments
+    function getStoredComments(artId) {
+      const saved = localStorage.getItem(`comments_${artId}`);
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+      return [{ name: 'পাঠকমিত্র', time: 'গতকাল', text: 'অসাধারণ অন্তর্দৃষ্টিপূর্ণ আলোচনা। জাযাকাল্লাহু খাইরান।' }];
+    }
+
+    function loadArticleComments(artId) {
+      const comments = getStoredComments(artId);
+      const listEl = document.getElementById('comments-list');
+      const badge = document.getElementById('comments-count-badge');
+      if (badge) badge.textContent = `${comments.length}টি মন্তব্য`;
+      if (listEl) {
+        listEl.innerHTML = comments.map(c => `
+          <div class="p-3 rounded-xl border theme-border theme-card text-xs space-y-1">
+            <div class="flex justify-between font-bold theme-text">
+              <span>${c.name}</span>
+              <span class="theme-muted text-[10px]">${c.time}</span>
+            </div>
+            <p class="theme-muted leading-relaxed">${c.text}</p>
+          </div>
+        `).join('');
+      }
+    }
+
+    function submitComment(e) {
+      e.preventDefault();
+      if (!currentArticleId) return;
+      const name = document.getElementById('commenter-name').value.trim();
+      const text = document.getElementById('comment-text').value.trim();
+      if (!name || !text) return;
+
+      const comments = getStoredComments(currentArticleId);
+      comments.unshift({ name, time: 'এখনই', text });
+      localStorage.setItem(`comments_${currentArticleId}`, JSON.stringify(comments));
+
+      document.getElementById('commenter-name').value = '';
+      document.getElementById('comment-text').value = '';
+      loadArticleComments(currentArticleId);
+      showToast('✓ আপনার মন্তব্য প্রকাশিত হয়েছে!');
+    }
+
+    // Voice to Text
+    function startVoiceInput(targetId, iconId) {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        alert('আপনার ব্রাউজারে স্পিচ রিকগনিশন সমর্থন করে না। ক্রোম ব্রাউজার ব্যবহার করুন।');
+        return;
+      }
+      const rec = new SR();
+      rec.lang = 'bn-BD';
+      const icon = document.getElementById(iconId);
+      if (icon) icon.textContent = '🔴';
+      showToast('🎙️ বলুন... ভয়েস রেকর্ড হচ্ছে');
+
+      rec.onresult = (e) => {
+        const text = e.results[0][0].transcript;
+        const target = document.getElementById(targetId);
+        if (target) target.value = (target.value ? target.value + ' ' : '') + text;
+      };
+      rec.onend = () => { if (icon) icon.textContent = '🎙️'; };
+      rec.start();
+    }
+
+    // Quotes
+    let qIdx = 0;
+    function shuffleQuote() {
+      qIdx = (qIdx + 1) % REAL_QUOTES.length;
+      document.getElementById('living-quote-text').textContent = `"${REAL_QUOTES[qIdx].text}"`;
+      document.getElementById('living-quote-ref').textContent = `— ${REAL_QUOTES[qIdx].source}`;
+    }
+
+    // =======================================================================
+    // 6. SECRET AUTHOR STUDIO (PIN: 1234)
+    // =======================================================================
+    function openAuthorStudioModal() {
+      document.getElementById('author-studio-modal').classList.remove('hidden');
+      document.getElementById('studio-auth-box').classList.remove('hidden');
+      document.getElementById('studio-dashboard').classList.add('hidden');
+      document.getElementById('studio-password-input').value = '';
+      document.getElementById('studio-auth-error').classList.add('hidden');
+    }
+    function closeAuthorStudioModal() {
+      document.getElementById('author-studio-modal').classList.add('hidden');
+    }
+    function verifyStudioPassword() {
+      const p = document.getElementById('studio-password-input').value.trim();
+      if (p === '1234' || p === 'meshk') {
+        document.getElementById('studio-auth-box').classList.add('hidden');
+        document.getElementById('studio-dashboard').classList.remove('hidden');
+        loadManageArticles();
+      } else {
+        document.getElementById('studio-auth-error').classList.remove('hidden');
+      }
+    }
+
+    function switchStudioTab(tab) {
+      document.querySelectorAll('.studio-tab-btn').forEach(b => b.className = 'studio-tab-btn px-3.5 py-2 border-b-2 border-transparent theme-muted hover:theme-text cursor-pointer');
+      document.querySelectorAll('.studio-tab-panel').forEach(p => p.classList.add('hidden'));
+
+      if (tab === 'write') document.getElementById('tab-write-content').classList.remove('hidden');
+      if (tab === 'profile') document.getElementById('tab-profile-content').classList.remove('hidden');
+      if (tab === 'manage') {
+        document.getElementById('tab-manage-content').classList.remove('hidden');
+        loadManageArticles();
+      }
+      event.target.className = 'studio-tab-btn active px-3.5 py-2 border-b-2 border-amber-400 text-amber-300 cursor-pointer';
+    }
+
+    function quickEditAuthorName() {
+      const curr = getAuthorProfile().name || 'মুহিউদ্দীন মাআয';
+      const n = prompt('লেখকের নাম লিখুন:', curr);
+      if (n !== null && n.trim()) {
+        const a = getAuthorProfile();
+        a.name = n.trim();
+        setAuthorProfile(a);
+        syncAuthorUI();
+        showToast('✓ নাম সংরক্ষিত হয়েছে!');
+      }
+    }
+
+    function saveAuthorProfileChanges() {
+      const a = getAuthorProfile();
+      a.name = document.getElementById('edit-author-name').value.trim();
+      a.whatsapp = document.getElementById('edit-author-wa').value.trim();
+      a.bio = document.getElementById('edit-author-bio').value.trim();
+      setAuthorProfile(a);
+      syncAuthorUI();
+      showToast('✓ প্রোফাইল সংরক্ষিত হয়েছে!');
+    }
+
+    function publishNewArticle() {
+      const title = document.getElementById('new-art-title').value.trim();
+      const subtitle = document.getElementById('new-art-subtitle').value.trim();
+      const catId = document.getElementById('new-art-category').value;
+      const content = document.getElementById('new-art-content').value.trim();
+      const tagsRaw = document.getElementById('new-art-tags').value.trim();
+
+      if (!title || !content) {
+        alert('শিরোনাম এবং মূল লেখা পূরণ করুন।');
+        return;
+      }
+
+      const now = new Date();
+      const dateString = `${EN_DAYS[now.getDay()]}, ${now.getDate()} ${EN_MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+      const words = content.split(/\s+/).length;
+      const readTime = Math.max(1, Math.round(words / 100));
+
+      const newArticle = {
+        id: 'art_custom_' + Date.now(),
+        categoryId: catId,
+        title,
+        subtitle,
+        date: dateString,
+        words,
+        readTime,
+        tags: tagsRaw ? tagsRaw.split(',').map(t => '#' + t.trim()) : ['#রচনা'],
+        excerpt: content.slice(0, 140) + '...',
+        content
+      };
+
+      const articles = getStoredArticles();
+      articles.unshift(newArticle);
+      setStoredArticles(articles);
+
+      document.getElementById('new-art-title').value = '';
+      document.getElementById('new-art-subtitle').value = '';
+      document.getElementById('new-art-content').value = '';
+      document.getElementById('new-art-tags').value = '';
+
+      renderArticlesGrid();
+      closeAuthorStudioModal();
+      showToast('🚀 নতুন লেখা ওয়েবসাইটে প্রকাশিত হয়েছে!');
+    }
+
+    function loadManageArticles() {
+      const list = document.getElementById('manage-articles-list');
+      if (!list) return;
+      const articles = getStoredArticles();
+      list.innerHTML = articles.map(a => `
+        <div class="flex items-center justify-between p-2.5 rounded-xl border theme-border theme-card">
+          <span class="font-bold truncate max-w-[70%]">${a.title}</span>
+          <button type="button" onclick="deleteArticle('${a.id}')" class="px-2 py-1 rounded bg-rose-500/20 text-rose-300">মুছুন</button>
+        </div>
+      `).join('');
+    }
+
+    function deleteArticle(id) {
+      if (!confirm('মুছে ফেলতে চান?')) return;
+      let articles = getStoredArticles().filter(a => a.id !== id);
+      setStoredArticles(articles);
+      loadManageArticles();
+      renderArticlesGrid();
+      showToast('মুছে ফেলা হয়েছে');
+    }
+
+    // Avatar Modal
+    function openAvatarModal() { document.getElementById('avatar-modal')?.classList.remove('hidden'); }
+    function closeAvatarModal() { document.getElementById('avatar-modal')?.classList.add('hidden'); }
+    function handleAvatarFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const r = new FileReader();
+      r.onload = (ev) => {
+        const a = getAuthorProfile();
+        a.avatar = ev.target.result;
+        setAuthorProfile(a);
+        syncAuthorUI();
+        closeAvatarModal();
+        showToast('✓ ছবি যুক্ত হয়েছে!');
+      };
+      r.readAsDataURL(file);
+    }
+
+    // Native PWA Install
+    let deferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btn = document.getElementById('native-pwa-btn');
+      if (btn) btn.textContent = '📲 সরাসরি ইনস্টল করুন (১-ক্লিক)';
+    });
+
+    function openInstallModal() { document.getElementById('install-modal')?.classList.remove('hidden'); }
+    function closeInstallModal() { document.getElementById('install-modal')?.classList.add('hidden'); }
+    function triggerPWAInstall() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          closeInstallModal();
+          deferredPrompt = null;
+        });
+      } else {
+        alert('আপনার ব্রাউজার মেনুর ৩-ডট (⋮) থেকে "Install app" অথবা "Add to Home screen" চাপুন।');
+      }
+    }
+
+    // UI Synchronization
+    function syncAuthorUI() {
+      const a = getAuthorProfile();
+      document.getElementById('author-name-display').textContent = a.name || 'মুহিউদ্দীন মাআয';
+      document.getElementById('author-bio-display').textContent = a.bio;
+      document.getElementById('author-avatar-img').src = a.avatar;
+      const editName = document.getElementById('edit-author-name');
+      if (editName) editName.value = a.name || 'মুহিউদ্দীন মাআয';
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast-message');
+      if (!t) return;
+      t.textContent = msg;
+      t.classList.remove('translate-y-20', 'opacity-0');
+      t.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        t.classList.add('translate-y-20', 'opacity-0');
+        t.classList.remove('translate-y-0', 'opacity-100');
+      }, 2500);
+    }
+
+    // Ambient Swaying Leaf Particles Engine
+    function initLeaves() {
+      const c = document.getElementById('ambient-particles');
+      if (!c) return;
+      const ctx = c.getContext('2d');
+      let w = c.width = window.innerWidth;
+      let h = c.height = window.innerHeight;
+      window.addEventListener('resize', () => { w = c.width = window.innerWidth; h = c.height = window.innerHeight; });
+
+      const leaves = [];
+      for (let i = 0; i < 24; i++) {
+        leaves.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          size: Math.random() * 4 + 2,
+          speedY: Math.random() * 0.4 + 0.15,
+          speedX: (Math.random() - 0.5) * 0.3,
+          rot: Math.random() * Math.PI,
+          rotSpeed: (Math.random() - 0.5) * 0.02,
+          opacity: Math.random() * 0.25 + 0.1
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        leaves.forEach(l => {
+          ctx.save();
+          ctx.translate(l.x, l.y);
+          ctx.rotate(l.rot);
+          ctx.fillStyle = `rgba(16, 185, 129, ${l.opacity})`;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, l.size, l.size * 2, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+
+          l.y += l.speedY;
+          l.x += l.speedX;
+          l.rot += l.rotSpeed;
+          if (l.y > h + 10) { l.y = -10; l.x = Math.random() * w; }
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    // Register Real Service Worker for Native PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
+
+    // Boot
+    window.addEventListener('DOMContentLoaded', () => {
+      runSplash();
+      syncAuthorUI();
+      renderArticlesGrid();
+      initLeaves();
+    });
+  </script>
+</body>
+</html>

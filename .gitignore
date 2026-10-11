@@ -1,0 +1,14 @@
+# General
+.DS_Store
+Thumbs.db
+
+# Build & Cache
+node_modules/
+.cache/
+.dart_tool/
+.packages
+build/
+
+# IDE
+.vscode/
+.idea/
