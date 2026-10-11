@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>স্মৃতির ক্যানভাস — মুহিউদ্দীন মাআয</title>
   <meta name="description" content="মুহিউদ্দীন মাআয-এর ব্যক্তিগত সাহিত্যিক ব্লগ, কিতাব তাক, ফিল্ড ডায়রি ও চিন্তার নিভৃত আঙিনা।">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%230B1F18'/><path d='M25 32 L50 44 L75 32 L75 68 L50 80 L25 68 Z' fill='none' stroke='%23D4AF37' stroke-width='4'/><path d='M50 44 L50 80' stroke='%23D4AF37' stroke-width='3'/><path d='M50 16 C40 25 40 35 50 40 C60 35 60 25 50 16 Z' fill='%2310B981'/></svg>">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
 
   <!-- PWA Manifest & Meta -->
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#081410">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="স্মৃতির ক্যানভাস">
@@ -824,14 +826,37 @@
   </div>
 
   <!-- ===================================================================== -->
+  <!-- 5.5. REAL PWA FLOATING 1-CLICK INSTALL BANNER (AUTO-POPS ON MOBILE) -->
+  <!-- ===================================================================== -->
+  <div id="mobile-install-banner" class="fixed bottom-20 left-3 right-3 sm:left-auto sm:right-6 sm:bottom-6 z-40 max-w-sm mx-auto p-3 rounded-2xl border border-emerald-500/40 bg-[#081410]/95 backdrop-blur-md shadow-2xl flex items-center justify-between gap-3 transition-all duration-300">
+    <div class="flex items-center gap-3">
+      <img src="./icon-192.png" alt="App Icon" class="w-12 h-12 rounded-xl border border-amber-400/50 shadow flex-shrink-0">
+      <div>
+        <h4 class="text-xs font-bold text-emerald-100 font-sans flex items-center gap-1.5">
+          <span>স্মৃতির ক্যানভাস</span>
+          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded-full border border-emerald-500/30">অফিসিয়াল অ্যাপ</span>
+        </h4>
+        <p class="text-[11px] text-emerald-400/80">মোবাইলে সরাসরি ইনস্টল করুন</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-1.5 flex-shrink-0">
+      <button type="button" onclick="triggerPWAInstall()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-amber-400 text-black font-bold text-xs shadow-md hover:brightness-110 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        <span>ইনস্টল করুন</span>
+      </button>
+      <button type="button" onclick="dismissInstallBanner()" class="p-1.5 text-emerald-400/60 hover:text-white text-xs cursor-pointer" title="বন্ধ করুন">✕</button>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
   <!-- 6. REAL PWA NATIVE INSTALL MODAL -->
   <!-- ===================================================================== -->
   <div id="install-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm hidden" role="dialog" aria-modal="true">
     <div class="theme-surface border theme-border rounded-3xl max-w-sm w-full p-6 shadow-2xl relative text-center space-y-4">
       <button type="button" onclick="closeInstallModal()" class="absolute top-4 right-4 text-xs theme-muted hover:theme-text cursor-pointer">✕</button>
 
-      <div class="w-16 h-16 mx-auto rounded-2xl border border-emerald-500/40 p-2 theme-card flex items-center justify-center text-amber-300">
-        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"></path><path d="M12 2v20"></path></svg>
+      <div class="w-20 h-20 mx-auto rounded-2xl border border-emerald-500/40 p-1 theme-card flex items-center justify-center shadow-lg">
+        <img src="./icon-192.png" alt="App Icon" class="w-full h-full rounded-xl">
       </div>
 
       <div class="space-y-1">
@@ -1590,26 +1615,62 @@
       r.readAsDataURL(file);
     }
 
-    // Native PWA Install
+    // Native PWA Install Logic
     let deferredPrompt = null;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+    // Check if user already dismissed banner this session
+    if (isStandalone || sessionStorage.getItem('dismiss_install_banner') === '1') {
+      document.getElementById('mobile-install-banner')?.classList.add('hidden');
+    }
+
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
+      if (!isStandalone && sessionStorage.getItem('dismiss_install_banner') !== '1') {
+        document.getElementById('mobile-install-banner')?.classList.remove('hidden');
+      }
       const btn = document.getElementById('native-pwa-btn');
-      if (btn) btn.textContent = '📲 সরাসরি ইনস্টল করুন (১-ক্লিক)';
+      if (btn) btn.textContent = '📲 সরাসরি ১-ক্লিকে ইনস্টল করুন';
     });
 
-    function openInstallModal() { document.getElementById('install-modal')?.classList.remove('hidden'); }
-    function closeInstallModal() { document.getElementById('install-modal')?.classList.add('hidden'); }
+    window.addEventListener('appinstalled', () => {
+      deferredPrompt = null;
+      dismissInstallBanner();
+      closeInstallModal();
+      showToast('🎉 আলহামদুলিল্লাহ! অ্যাপটি আপনার মোবাইলে সফলভাবে ইনস্টল হয়েছে!');
+    });
+
+    function dismissInstallBanner() {
+      const banner = document.getElementById('mobile-install-banner');
+      if (banner) banner.classList.add('hidden');
+      sessionStorage.setItem('dismiss_install_banner', '1');
+    }
+
+    function openInstallModal() {
+      if (deferredPrompt) {
+        triggerPWAInstall();
+      } else {
+        document.getElementById('install-modal')?.classList.remove('hidden');
+      }
+    }
+
+    function closeInstallModal() {
+      document.getElementById('install-modal')?.classList.add('hidden');
+    }
+
     function triggerPWAInstall() {
       if (deferredPrompt) {
         deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(() => {
-          closeInstallModal();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            dismissInstallBanner();
+            closeInstallModal();
+          }
           deferredPrompt = null;
         });
       } else {
-        alert('আপনার ব্রাউজার মেনুর ৩-ডট (⋮) থেকে "Install app" অথবা "Add to Home screen" চাপুন।');
+        document.getElementById('install-modal')?.classList.remove('hidden');
       }
     }
 
@@ -1683,7 +1744,7 @@
     // Register Real Service Worker for Native PWA
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(() => {});
+        navigator.serviceWorker.register('./sw.js').catch((err) => console.log('SW register non-fatal:', err));
       });
     }
 

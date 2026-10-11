@@ -1,24 +1,37 @@
 {
   "name": "স্মৃতির ক্যানভাস — মুহিউদ্দীন মাআয",
   "short_name": "স্মৃতির ক্যানভাস",
-  "description": "মুহিউদ্দীন মাআয-এর ব্যক্তিগত সাহিত্যিক ব্লগ, কিতাব তাক ও চিন্তার নিভৃত আঙিনা",
-  "start_url": "/",
+  "description": "মুহিউদ্দীন মাআয-এর সাহিত্যিক ব্লগ, কিতাব তাক ও চিন্তার নিভৃত আঙিনা",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#081410",
-  "theme_color": "#0B1A14",
-  "orientation": "portrait",
+  "theme_color": "#081410",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='45' fill='%230B1A14'/><path d='M45 55 L96 75 L147 55 L147 137 L96 157 L45 137 Z' fill='none' stroke='%23D4AF37' stroke-width='8'/><path d='M96 75 L96 157' stroke='%23D4AF37' stroke-width='6'/><circle cx='96' cy='38' r='12' fill='%2310B981'/></svg>",
+      "src": "./icon-192.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='120' fill='%230B1A14'/><path d='M120 145 L256 195 L392 145 L392 367 L256 417 L120 367 Z' fill='none' stroke='%23D4AF37' stroke-width='22'/><path d='M256 195 L256 417' stroke='%23D4AF37' stroke-width='16'/><circle cx='256' cy='100' r='32' fill='%2310B981'/></svg>",
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icon-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

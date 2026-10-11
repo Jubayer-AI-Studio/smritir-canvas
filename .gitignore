@@ -12,3 +12,7 @@ build/
 # IDE
 .vscode/
 .idea/
+
+# Binaries
+cloudflared.exe
+.netlify/

@@ -3,17 +3,19 @@
 // Enables Native Offline Reading and Progressive Web App Installation
 // =====================================================================
 
-const CACHE_NAME = 'smritir-canvas-v2';
+const CACHE_NAME = 'smritir-canvas-v3';
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json'
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
+      return cache.addAll(STATIC_ASSETS).catch((err) => console.log('Cache addAll:', err));
     })
   );
   self.skipWaiting();
@@ -38,7 +40,7 @@ self.addEventListener('fetch', (event) => {
       return fetch(event.request).then((networkResponse) => {
         return networkResponse;
       }).catch(() => {
-        return caches.match('/index.html');
+        return caches.match('./index.html');
       });
     })
   );
