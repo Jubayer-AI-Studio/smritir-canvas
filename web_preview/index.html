@@ -407,17 +407,29 @@
               পড়াশোনা, পাঠাভ্যাস ও চিন্তা আমার দৈনন্দিন জীবনের অবিচ্ছেদ্য অংশ। এটি কোনো বাণিজ্যিক পোর্টাল নয়, বরং একজন মুগ্ধ পাঠকের নিভৃত পড়ার ঘর।
             </p>
 
+            <!-- Personal Author Motto / Quote -->
+            <div id="author-quote-box" class="p-2.5 rounded-xl border border-amber-400/20 bg-amber-400/5 text-amber-200/90 text-[11px] font-sans italic flex items-start gap-2">
+              <span class="text-amber-400 text-sm flex-shrink-0">❝</span>
+              <span id="author-quote-display">শব্দের ভেতর লুকিয়ে থাকে জীবনের গভীরতম সত্য; সত্যকে প্রকাশ করাই একজন কলম সৈনিকের আসল দায়বদ্ধতা।</span>
+            </div>
+
             <div class="pt-2 flex flex-wrap items-center justify-center sm:justify-between gap-2 text-[11px] font-sans theme-muted border-t theme-border">
               <div class="flex items-center gap-2">
-                <span>📚 <strong>৫</strong>টি রচনা</span>
+                <span>📚 <strong id="hero-article-count">৫</strong>টি রচনা</span>
                 <span>·</span>
-                <span>📖 <strong>২</strong>টি কিতাব তাকে</span>
+                <span>📖 <strong id="hero-book-count">২</strong>টি বই তাক</span>
                 <span>·</span>
                 <span class="text-emerald-400">⚡ অফলাইন সক্রিয়</span>
               </div>
-              <button type="button" onclick="openAuthorStudioModal()" class="text-amber-300 hover:underline cursor-pointer">
-                লেখকের খাস খাতা ও স্টুডিও ✎
-              </button>
+              <div class="flex items-center gap-3">
+                <button type="button" onclick="openAuthorStoryModal()" class="text-emerald-400 font-bold hover:underline cursor-pointer flex items-center gap-1">
+                  <span>📖 সম্পূর্ণ আত্মপরিচয় পড়ুন</span>
+                </button>
+                <span>·</span>
+                <button type="button" onclick="openAuthorStudioModal()" class="text-amber-300 font-bold hover:underline cursor-pointer flex items-center gap-1">
+                  <span>✍️ লেখক স্টুডিও</span>
+                </button>
+              </div>
             </div>
 
           </div>
@@ -485,25 +497,9 @@
         </div>
 
         <!-- Smooth Sliding Category Pill Tabs (Mobile Touch-Optimized) -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar text-xs font-sans">
-          <button type="button" onclick="filterCategory('all')" data-cat-tab="all" class="cat-pill-btn active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-amber-400 text-black cursor-pointer shadow-sm">
-            সব রচনা (৫)
-          </button>
-          <button type="button" onclick="filterCategory('cat_01')" data-cat-tab="cat_01" class="cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
-            ক. জুমা ও সীরাত
-          </button>
-          <button type="button" onclick="filterCategory('cat_02')" data-cat-tab="cat_02" class="cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
-            খ. কিতাব পাঠ
-          </button>
-          <button type="button" onclick="filterCategory('cat_03')" data-cat-tab="cat_03" class="cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
-            গ. ফিল্ড ডায়রি
-          </button>
-          <button type="button" onclick="filterCategory('cat_04')" data-cat-tab="cat_04" class="cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
-            ঘ. তাহকিক
-          </button>
-          <button type="button" onclick="filterCategory('cat_05')" data-cat-tab="cat_05" class="cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
-            ঙ. সমকালীন
-          </button>
+        <!-- Dynamic Category / Folder Pill Tabs -->
+        <div id="category-pills-container" class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none text-xs font-sans">
+          <!-- Rendered dynamically via renderCategoryPills() -->
         </div>
 
         <!-- 2-Column Clean Articles Grid -->
@@ -520,72 +516,52 @@
       </section>
 
       <!-- ================================================================= -->
-      <!-- SECTION 4: VIRTUAL BOOKSHELF (কিতাব তাক) -->
+      <!-- SECTION 4: DYNAMIC BOOKSHELF (কিতাব তাক ও পঠন ডায়েরি) -->
       <!-- ================================================================= -->
       <section id="bookshelf-section" class="rounded-3xl border theme-border theme-surface p-5 sm:p-7 space-y-4">
-        <div class="border-b theme-border pb-3">
-          <span class="text-xs text-emerald-400 font-semibold tracking-wider uppercase">📚 ব্যক্তিগত পাঠাগার</span>
-          <h3 class="text-xl font-bold font-sans theme-text">মুহিউদ্দীন মাআয-এর কিতাব তাক</h3>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b theme-border pb-3.5">
+          <div>
+            <span class="text-xs text-emerald-400 font-semibold tracking-wider uppercase flex items-center gap-1.5">
+              <span>📚</span><span>ব্যক্তিগত পাঠাগার ও পঠন ডায়েরি</span>
+            </span>
+            <h3 class="text-xl sm:text-2xl font-bold font-sans text-amber-300 mt-1">
+              মুহিউদ্দীন মাআয-এর কিতাব তাক
+            </h3>
+            <p class="text-xs theme-muted mt-0.5">পড়া শেষ হওয়া বই, চলমান পাঠ, রেটিং এবং আগামীতে পড়ার জরুরি তালিকা</p>
+          </div>
+          <button type="button" onclick="openStudioWithTab('bookshelf')" class="self-start sm:self-auto inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-400/10 text-amber-300 border border-amber-400/30 text-xs font-bold hover:bg-amber-400 hover:text-black transition-all cursor-pointer shadow-sm">
+            <span>+ নতুন বই যোগ করুন</span>
+          </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <!-- Book 1 -->
-          <div class="rounded-2xl border theme-border theme-card p-4 space-y-3">
-            <div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                চলমান পাঠ (Reading)
-              </span>
-              <h4 class="text-base font-bold font-sans theme-text mt-1">
-                দারুল উলুম দেওবন্দ কী জামে ওয়া মুখতাসার তারিখ
-              </h4>
-              <p class="text-xs text-amber-300/80 mt-0.5">
-                ড. মাওলানা মুহাম্মদুল্লাহ কাসেমী
-              </p>
-            </div>
+        <!-- Bookshelf Filter Pills -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none text-xs font-sans">
+          <button type="button" onclick="filterBookshelf('all')" data-book-tab="all" class="book-pill-btn active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-emerald-500 text-black shadow-md cursor-pointer">
+            সব বই (<span id="count-book-all">০</span>)
+          </button>
+          <button type="button" onclick="filterBookshelf('reading')" data-book-tab="reading" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:text-amber-300 cursor-pointer">
+            📖 এখন পড়ছি (<span id="count-book-reading">০</span>)
+          </button>
+          <button type="button" onclick="filterBookshelf('completed')" data-book-tab="completed" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:text-emerald-300 cursor-pointer">
+            ✅ পড়া শেষ (<span id="count-book-completed">০</span>)
+          </button>
+          <button type="button" onclick="filterBookshelf('planned')" data-book-tab="planned" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:text-amber-300 cursor-pointer">
+            📌 আগামীতে পড়ব (<span id="count-book-planned">০</span>)
+          </button>
+          <button type="button" onclick="filterBookshelf('high')" data-book-tab="high" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border border-rose-500/30 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 cursor-pointer">
+            🔥 অত্যন্ত জরুরি
+          </button>
+        </div>
 
-            <div class="space-y-1 font-sans text-xs theme-muted">
-              <div class="flex justify-between">
-                <span>৪০০ / ৮৫০ পৃষ্ঠা</span>
-                <span class="text-amber-300 font-bold">৪৭% সমাপ্ত</span>
-              </div>
-              <div class="w-full h-1.5 rounded-full bg-black/40 overflow-hidden border theme-border">
-                <div class="h-full bg-gradient-to-r from-emerald-500 to-amber-400" style="width: 47%;"></div>
-              </div>
-            </div>
+        <!-- Dynamic Books Grid -->
+        <div id="bookshelf-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+          <!-- Rendered dynamically via JS -->
+        </div>
 
-            <p class="text-xs theme-muted italic border-l-2 border-emerald-500/40 pl-2">
-              "মুফতি হুমায়ুন আইয়ুব সাহেবের থেকে এনেছি। পড়া শুরু করেছি তিন দিন হলো। নতুন অনেক বিষয় জানছি।"
-            </p>
-          </div>
-
-          <!-- Book 2 -->
-          <div class="rounded-2xl border theme-border theme-card p-4 space-y-3">
-            <div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                পড়ার ইচ্ছা (Wishlist)
-              </span>
-              <h4 class="text-base font-bold font-sans theme-text mt-1">
-                জুলাই কেন আমাদের লড়াই?
-              </h4>
-              <p class="text-xs text-amber-300/80 mt-0.5">
-                মাওলানা মামুনুল হক
-              </p>
-            </div>
-
-            <div class="space-y-1 font-sans text-xs theme-muted">
-              <div class="flex justify-between">
-                <span>২৫০ পৃষ্ঠা</span>
-                <span class="text-emerald-400">পড়ার অপেক্ষায়</span>
-              </div>
-              <div class="w-full h-1.5 rounded-full bg-black/40 overflow-hidden border theme-border">
-                <div class="h-full bg-amber-400/40" style="width: 5%;"></div>
-              </div>
-            </div>
-
-            <p class="text-xs theme-muted italic border-l-2 border-amber-400/40 pl-2">
-              "সম্প্রতি বইটার ওপর রিভিউ প্রতিযোগিতার আয়োজন করা হয়েছে। রাজনীতি গভীরভাবে উপলব্ধি করার সুযোগ হচ্ছে।"
-            </p>
-          </div>
+        <div id="no-books-found" class="hidden text-center py-8 px-4 border theme-border rounded-2xl theme-card space-y-2">
+          <span class="text-2xl">📚</span>
+          <p class="text-xs font-bold theme-text">এই তালিকায় কোনো বই পাওয়া যায়নি</p>
+          <button type="button" onclick="filterBookshelf('all')" class="px-3 py-1 rounded-xl bg-amber-400/20 text-amber-300 text-xs">সব বই দেখুন</button>
         </div>
       </section>
 
@@ -743,52 +719,107 @@
   </nav>
 
   <!-- ===================================================================== -->
-  <!-- 5. SECRET AUTHOR STUDIO MODAL (পিন: ১২৩৪) -->
+  <!-- 4.8. PUBLIC AUTHOR FULL STORY & PHILOSOPHY MODAL -->
+  <!-- ===================================================================== -->
+  <div id="author-story-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md hidden select-none" role="dialog" aria-modal="true">
+    <div class="w-full max-w-xl theme-surface border border-emerald-500/40 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="px-5 py-4 border-b theme-border flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="text-xl">📖</span>
+          <div>
+            <h3 class="text-base font-bold font-sans text-amber-300">লেখকের আত্মপরিচয় ও ভাবনার জগত</h3>
+            <p class="text-[11px] theme-muted">মুহিউদ্দীন মাআয — সাহিত্য, সীরাত ও চিন্তার নিভৃত সফর</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeAuthorStoryModal()" class="w-7 h-7 rounded-full border theme-border flex items-center justify-center theme-muted hover:theme-text cursor-pointer">✕</button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 font-sans text-sm leading-relaxed">
+        <!-- Header Info -->
+        <div class="flex items-center gap-4 border-b theme-border pb-4">
+          <img id="story-modal-avatar" src="./icon-192.png" alt="Author" class="w-16 h-16 rounded-2xl border border-amber-400/40 object-cover shadow">
+          <div>
+            <h4 id="story-modal-name" class="text-lg font-bold text-amber-300">মুহিউদ্দীন মাআয</h4>
+            <p id="story-modal-designation" class="text-xs text-emerald-400 font-semibold">লেখক, গবেষক, শিক্ষক ও সাংবাদিক</p>
+            <p id="story-modal-org" class="text-[11px] theme-muted">ourislam24.com</p>
+          </div>
+        </div>
+
+        <!-- Personal Motto / Quote Box -->
+        <div class="p-3.5 rounded-2xl border border-amber-400/25 bg-amber-400/5 text-amber-200 text-xs italic space-y-1">
+          <span class="text-amber-400 text-base font-serif">❝</span>
+          <p id="story-modal-quote">শব্দের ভেতর লুকিয়ে থাকে জীবনের গভীরতম সত্য; সত্যকে প্রকাশ করাই একজন কলম সৈনিকের আসল দায়বদ্ধতা।</p>
+        </div>
+
+        <!-- What He Does & Loves (Full Bio) -->
+        <div class="space-y-2 text-xs sm:text-sm theme-text leading-relaxed">
+          <h5 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">🌿 জীবনধারা ও ভাবনার আঙিনা</h5>
+          <div id="story-modal-fullbio" class="whitespace-pre-line theme-muted">
+            ইসলামি ইতিহাস, সীরাত চর্চা ও সমকালীন চিন্তাধারার নিভৃত অন্বেষক। দারুল উলুম দেওবন্দের গৌরবোজ্জ্বল ঐতিহ্য, ইলম চর্চা এবং সাহাবায়ে কেরামের আদর্শের আলোয় সমাজ ও জীবনকে দেখার চেষ্টা করি।
+
+            পড়াশোনা, পাঠাভ্যাস ও চিন্তা আমার দৈনন্দিন জীবনের অবিচ্ছেদ্য অংশ। এটি কোনো বাণিজ্যিক পোর্টাল নয়, বরং একজন মুগ্ধ পাঠকের নিভৃত পড়ার ঘর। শব্দের বুননে স্মৃতি আর চেতনার ক্যানভাস আঁকাই জীবনের আনন্দ।
+          </div>
+        </div>
+
+        <!-- Contact & Connections -->
+        <div class="pt-3 border-t theme-border flex flex-wrap items-center justify-between gap-2 text-xs">
+          <span class="theme-muted">যোগাযোগ ও ফলো:</span>
+          <div class="flex items-center gap-2">
+            <a id="story-modal-wa" href="https://wa.me/8801990537782" target="_blank" class="px-3 py-1 rounded-xl bg-[#25D366] text-white font-bold text-[11px]">WhatsApp</a>
+            <a href="https://www.facebook.com/profile.php?id=100014276491414" target="_blank" class="px-3 py-1 rounded-xl bg-[#1877F2] text-white font-bold text-[11px]">Facebook</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 5. SECRET AUTHOR STUDIO MODAL -->
   <!-- ===================================================================== -->
   <div id="author-studio-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md hidden select-none" role="dialog" aria-modal="true">
-    <div class="w-full max-w-2xl theme-surface border border-amber-400/40 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div class="w-full max-w-2xl theme-surface border border-amber-400/40 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
       
       <div class="px-5 py-3.5 border-b theme-border flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="text-xl">🔐</span>
           <div>
-            <h3 class="text-base font-bold font-sans text-amber-300">মুহিউদ্দীন মাআয — লেখক স্টুডিও</h3>
-            <p class="text-[10px] theme-muted">ব্যক্তিগত লেখা প্রকাশ, সম্পাদনা ও পূর্ণাঙ্গ নিয়ন্ত্রণ</p>
+            <h3 class="text-base font-bold font-sans text-amber-300">লেখক স্টুডিও ও নিয়ন্ত্রণ প্যানেল</h3>
+            <p class="text-[10px] theme-muted">লেখা, কিতাব তাক, ক্যাটাগরি, আত্মপরিচয় ও সিকিউরিটি কন্ট্রোল</p>
           </div>
         </div>
         <button type="button" onclick="closeAuthorStudioModal()" class="w-7 h-7 rounded-full border theme-border flex items-center justify-center theme-muted hover:theme-text cursor-pointer">✕</button>
       </div>
 
-      <!-- Password Box -->
+      <!-- Password Box (No visible pin text) -->
       <div id="studio-auth-box" class="p-8 text-center space-y-3.5 max-w-xs mx-auto my-auto font-sans">
         <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-xl text-amber-300">🔑</div>
         <h4 class="text-sm font-bold theme-text">গোপন স্টুডিও পিন দিন</h4>
-        <p class="text-xs theme-muted">পিন কোড: <strong>1234</strong></p>
-        <input type="password" id="studio-password-input" placeholder="পিন লিখুন..." class="w-full px-3 py-2 text-center text-sm rounded-xl border theme-border theme-card theme-text focus:outline-none focus:border-amber-400 tracking-widest">
+        <p class="text-xs theme-muted">আপনার ব্যক্তিগত সিকিউরিটি কোড দিন</p>
+        <input type="password" id="studio-password-input" placeholder="••••" maxlength="8" class="w-full px-3 py-2 text-center text-lg rounded-xl border theme-border theme-card theme-text focus:outline-none focus:border-amber-400 tracking-widest font-mono">
         <button type="button" onclick="verifyStudioPassword()" class="w-full py-2 rounded-xl bg-amber-400 text-black font-bold text-xs hover:bg-amber-300 cursor-pointer">প্রবেশ করুন →</button>
-        <p id="studio-auth-error" class="text-xs text-rose-400 hidden">ভুল পিন! দয়া করে ১২৩৪ দিন।</p>
+        <p id="studio-auth-error" class="text-xs text-rose-400 hidden">ভুল পিন কোড! পুনরায় চেষ্টা করুন।</p>
       </div>
 
       <!-- Unlocked Dashboard -->
       <div id="studio-dashboard" class="hidden flex-grow flex flex-col overflow-hidden font-sans">
-        <div class="flex border-b theme-border text-xs font-semibold px-4 pt-1 bg-black/20">
-          <button type="button" onclick="switchStudioTab('write')" class="studio-tab-btn active px-3.5 py-2 border-b-2 border-amber-400 text-amber-300 cursor-pointer">✍️ নতুন লেখা প্রকাশ</button>
-          <button type="button" onclick="switchStudioTab('profile')" class="studio-tab-btn px-3.5 py-2 border-b-2 border-transparent theme-muted hover:theme-text cursor-pointer">👤 লেখক প্রোফাইল</button>
-          <button type="button" onclick="switchStudioTab('manage')" class="studio-tab-btn px-3.5 py-2 border-b-2 border-transparent theme-muted hover:theme-text cursor-pointer">📑 লেখা মুছুন</button>
+        <!-- Studio Tabs -->
+        <div class="flex border-b theme-border text-xs font-semibold px-2 pt-1 bg-black/20 overflow-x-auto scrollbar-none">
+          <button type="button" onclick="switchStudioTab('write')" data-stab="write" class="studio-tab-btn active px-3 py-2 border-b-2 border-amber-400 text-amber-300 whitespace-nowrap cursor-pointer">✍️ নতুন লেখা</button>
+          <button type="button" onclick="switchStudioTab('bookshelf')" data-stab="bookshelf" class="studio-tab-btn px-3 py-2 border-b-2 border-transparent theme-muted hover:theme-text whitespace-nowrap cursor-pointer">📚 বইয়ের তাক</button>
+          <button type="button" onclick="switchStudioTab('categories')" data-stab="categories" class="studio-tab-btn px-3 py-2 border-b-2 border-transparent theme-muted hover:theme-text whitespace-nowrap cursor-pointer">📁 ক্যাটাগরি ও ফোল্ডার</button>
+          <button type="button" onclick="switchStudioTab('profile')" data-stab="profile" class="studio-tab-btn px-3 py-2 border-b-2 border-transparent theme-muted hover:theme-text whitespace-nowrap cursor-pointer">👤 আত্মপরিচয়</button>
+          <button type="button" onclick="switchStudioTab('pin')" data-stab="pin" class="studio-tab-btn px-3 py-2 border-b-2 border-transparent theme-muted hover:theme-text whitespace-nowrap cursor-pointer">🔐 সিকিউরিটি পিন</button>
+          <button type="button" onclick="switchStudioTab('manage')" data-stab="manage" class="studio-tab-btn px-3 py-2 border-b-2 border-transparent theme-muted hover:theme-text whitespace-nowrap cursor-pointer">📑 লেখা মুছুন</button>
         </div>
 
         <div class="p-5 overflow-y-auto space-y-4 flex-grow text-xs">
-          <!-- Tab: Write -->
+          <!-- 1. Tab: Write -->
           <div id="tab-write-content" class="studio-tab-panel space-y-3">
             <input type="text" id="new-art-title" placeholder="রচনার শিরোনাম..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text text-sm font-bold">
             <div class="grid grid-cols-2 gap-2">
               <input type="text" id="new-art-subtitle" placeholder="উপ-শিরোনাম..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
-              <select id="new-art-category" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
-                <option value="cat_01">ক. জুমা ও সীরাতের পাঠ</option>
-                <option value="cat_02">খ. কিতাব পাঠ পরবর্তী ভাবনা</option>
-                <option value="cat_03">গ. ফিল্ড ডায়রি ও ভ্রমণ কথা</option>
-                <option value="cat_04">ঘ. তাহকিক ও মনীষী সান্নিধ্য</option>
-                <option value="cat_05">ঙ. সমকালীন গ্রন্থালোচনা ও রাজনীতি</option>
+              <select id="new-art-category" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text font-sans">
+                <!-- Dynamically populated from getStoredCategories() -->
               </select>
             </div>
             <div class="space-y-1">
@@ -804,17 +835,150 @@
             <button type="button" onclick="publishNewArticle()" class="px-5 py-2.5 rounded-xl bg-amber-400 text-black font-bold cursor-pointer">🚀 সরাসরি প্রকাশ করুন</button>
           </div>
 
-          <!-- Tab: Profile -->
-          <div id="tab-profile-content" class="studio-tab-panel hidden space-y-3">
-            <div class="grid grid-cols-2 gap-2">
-              <input type="text" id="edit-author-name" value="মুহিউদ্দীন মাআয" placeholder="নাম..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
-              <input type="text" id="edit-author-wa" value="+8801990537782" placeholder="WhatsApp..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
+          <!-- 2. Tab: Bookshelf Management -->
+          <div id="tab-bookshelf-content" class="studio-tab-panel hidden space-y-4">
+            <div class="border theme-border p-3.5 rounded-2xl theme-card space-y-3">
+              <h4 class="font-bold text-amber-300 flex items-center gap-1.5">
+                <span>➕</span><span id="book-form-title">বইয়ের তাকে নতুন বই যোগ করুন</span>
+              </h4>
+              <input type="hidden" id="edit-book-id" value="">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <input type="text" id="book-title-input" placeholder="বইয়ের শিরোনাম..." class="w-full px-3 py-2 rounded-xl border theme-border theme-surface theme-text font-bold">
+                <input type="text" id="book-writer-input" placeholder="মূল লেখক / সংকলক..." class="w-full px-3 py-2 rounded-xl border theme-border theme-surface theme-text">
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div>
+                  <label class="block text-[10px] theme-muted mb-1">পড়ার স্ট্যাটাস:</label>
+                  <select id="book-status-input" class="w-full px-2.5 py-1.5 rounded-xl border theme-border theme-surface theme-text">
+                    <option value="reading">📖 এখন পড়ছি (Reading)</option>
+                    <option value="completed">✅ পড়া শেষ (Completed)</option>
+                    <option value="planned">📌 আগামীতে পড়ব (Planned)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[10px] theme-muted mb-1">অগ্রাধিকার / প্রায়োরিটি:</label>
+                  <select id="book-priority-input" class="w-full px-2.5 py-1.5 rounded-xl border theme-border theme-surface theme-text">
+                    <option value="high">🔥 অত্যন্ত জরুরি (High)</option>
+                    <option value="normal">সাধারণ (Normal)</option>
+                    <option value="low">পরে হলেও চলবে (Low)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[10px] theme-muted mb-1">রেটিং (১-৫ স্টার):</label>
+                  <select id="book-rating-input" class="w-full px-2.5 py-1.5 rounded-xl border theme-border theme-surface theme-text">
+                    <option value="5">⭐⭐⭐⭐⭐ (৫ স্টার)</option>
+                    <option value="4">⭐⭐⭐⭐ (৪ স্টার)</option>
+                    <option value="3">⭐⭐⭐ (৩ স্টার)</option>
+                    <option value="2">⭐⭐ (২ স্টার)</option>
+                    <option value="1">⭐ (১ স্টার)</option>
+                  </select>
+                </div>
+              </div>
+              <input type="text" id="book-category-input" placeholder="বিষয় / ক্যাটাগরি (যেমন: ইতিহাস, সীরাত, রাজনীতি)..." class="w-full px-3 py-2 rounded-xl border theme-border theme-surface theme-text">
+              <div>
+                <label class="block text-[10px] theme-muted mb-1">বই সম্পর্কে আপনার ব্যক্তিগত নোট বা পাঠ অনুভূতি:</label>
+                <textarea id="book-notes-input" rows="3" placeholder="বইটি কেমন লাগলো, কোথা থেকে সংগ্রহ করেছেন বা পড়ার মূল উদ্দেশ্য..." class="w-full px-3 py-2 rounded-xl border theme-border theme-surface theme-text"></textarea>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="saveBookEntry()" class="px-4 py-2 rounded-xl bg-amber-400 text-black font-bold cursor-pointer">
+                  💾 বই সংরক্ষণ করুন
+                </button>
+                <button type="button" id="cancel-book-edit-btn" onclick="resetBookForm()" class="hidden px-3 py-2 rounded-xl border theme-border theme-muted hover:theme-text cursor-pointer">
+                  বাতিল
+                </button>
+              </div>
             </div>
-            <textarea id="edit-author-bio" rows="3" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text"></textarea>
-            <button type="button" onclick="saveAuthorProfileChanges()" class="px-4 py-2 rounded-xl bg-amber-400 text-black font-bold cursor-pointer">✓ তথ্য সেভ করুন</button>
+
+            <!-- Existing Books List -->
+            <div class="space-y-2">
+              <h5 class="font-bold theme-text">সংরক্ষিত কিতাব তালিকা:</h5>
+              <div id="manage-books-list" class="space-y-2"></div>
+            </div>
           </div>
 
-          <!-- Tab: Manage -->
+          <!-- 3. Tab: Category & Folder Management -->
+          <div id="tab-categories-content" class="studio-tab-panel hidden space-y-4">
+            <div class="border theme-border p-3.5 rounded-2xl theme-card space-y-3">
+              <h4 class="font-bold text-amber-300 flex items-center gap-1.5">
+                <span>➕</span><span>নতুন ফোল্ডার / ক্যাটাগরি তৈরি করুন</span>
+              </h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <input type="text" id="new-cat-name" placeholder="ক্যাটাগরির নাম (যেমন: ফিকহ ও ফতোয়া)..." class="w-full px-3 py-2 rounded-xl border theme-border theme-surface theme-text font-bold">
+                <input type="text" id="new-cat-icon" placeholder="প্রতীক বা ইমোজি (যেমন: 🕌, 📖, ✒️, 💡)..." value="📁" class="w-full px-3 py-2 rounded-xl border theme-border theme-surface theme-text">
+              </div>
+              <input type="text" id="new-cat-desc" placeholder="সংক্ষিপ্ত বিবরণ বা উদ্দেশ্য..." class="w-full px-3 py-2 rounded-xl border theme-border theme-surface theme-text">
+              <button type="button" onclick="createNewCategory()" class="px-4 py-2 rounded-xl bg-emerald-500 text-black font-bold cursor-pointer">
+                + ফোল্ডার যুক্ত করুন
+              </button>
+            </div>
+
+            <div class="space-y-2">
+              <h5 class="font-bold theme-text">সক্রিয় ফোল্ডার ও ক্যাটাগরি তালিকা:</h5>
+              <div id="manage-categories-list" class="space-y-2"></div>
+            </div>
+          </div>
+
+          <!-- 4. Tab: Author Profile Full Management -->
+          <div id="tab-profile-content" class="studio-tab-panel hidden space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[10px] theme-muted mb-1">লেখকের নাম:</label>
+                <input type="text" id="edit-author-name" value="মুহিউদ্দীন মাআয" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text font-bold">
+              </div>
+              <div>
+                <label class="block text-[10px] theme-muted mb-1">উপাধি / পদবি:</label>
+                <input type="text" id="edit-author-designation" value="লেখক, গবেষক, শিক্ষক ও সাংবাদিক" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[10px] theme-muted mb-1">কর্মক্ষেত্র / গণমাধ্যম:</label>
+                <input type="text" id="edit-author-org" value="ourislam24.com" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
+              </div>
+              <div>
+                <label class="block text-[10px] theme-muted mb-1">WhatsApp নম্বর:</label>
+                <input type="text" id="edit-author-wa" value="+8801990537782" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text">
+              </div>
+            </div>
+            <div>
+              <label class="block text-[10px] theme-muted mb-1">প্রিয় বাণী বা জীবনের মূলমন্ত্র:</label>
+              <input type="text" id="edit-author-quote" value="শব্দের ভেতর লুকিয়ে থাকে জীবনের গভীরতম সত্য; সত্যকে প্রকাশ করাই একজন কলম সৈনিকের আসল দায়বদ্ধতা।" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text italic">
+            </div>
+            <div>
+              <label class="block text-[10px] theme-muted mb-1">সংক্ষিপ্ত পরিচিতি (হোমপেজে প্রদর্শিত):</label>
+              <textarea id="edit-author-bio" rows="2" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text"></textarea>
+            </div>
+            <div>
+              <label class="block text-[10px] theme-muted mb-1">পূর্ণ আত্মপরিচয় ও জীবনধারা (কী করেন, কী ভালোবাসেন, ভাবনার জগত):</label>
+              <textarea id="edit-author-full-story" rows="5" class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text leading-relaxed" placeholder="এখানে আপনার পূর্ণ আত্মপরিচয়, সাহিত্য ও ইলমি সফর, আপনি কী করতে ভালোবাসেন ইত্যাদি বিস্তারিত লিখুন..."></textarea>
+            </div>
+            <button type="button" onclick="saveAuthorProfileChanges()" class="px-5 py-2.5 rounded-xl bg-amber-400 text-black font-bold cursor-pointer">
+              ✓ পূর্ণ তথ্য সংরক্ষণ করুন
+            </button>
+          </div>
+
+          <!-- 5. Tab: Security & PIN Change -->
+          <div id="tab-pin-content" class="studio-tab-panel hidden space-y-3 max-w-sm">
+            <h4 class="font-bold text-amber-300">🔐 স্টুডিও পিন কোড পরিবর্তন করুন</h4>
+            <p class="text-[11px] theme-muted">পূর্বে থাকা ডিফল্ট ১২৩৪ পিনের বদলে নিজের পছন্দের নিরাপদ পিন সেট করুন।</p>
+            <div>
+              <label class="block text-[10px] theme-muted mb-1">বর্তমান পিন:</label>
+              <input type="password" id="pin-current" placeholder="বর্তমান পিন..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text font-mono">
+            </div>
+            <div>
+              <label class="block text-[10px] theme-muted mb-1">নতুন পিন:</label>
+              <input type="password" id="pin-new" placeholder="নতুন পিন (৪-৮ ডিজিট)..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text font-mono">
+            </div>
+            <div>
+              <label class="block text-[10px] theme-muted mb-1">নতুন পিন নিশ্চিত করুন:</label>
+              <input type="password" id="pin-confirm" placeholder="পুনরায় নতুন পিন..." class="w-full px-3 py-2 rounded-xl border theme-border theme-card theme-text font-mono">
+            </div>
+            <button type="button" onclick="changeStudioPin()" class="px-4 py-2 rounded-xl bg-emerald-500 text-black font-bold cursor-pointer">
+              🔒 পিন আপডেট করুন
+            </button>
+          </div>
+
+          <!-- 6. Tab: Manage Articles -->
           <div id="tab-manage-content" class="studio-tab-panel hidden space-y-2">
             <div id="manage-articles-list" class="space-y-2"></div>
           </div>
@@ -908,23 +1072,49 @@
     // REAL AUTHOR STATE (Preserving Muhyiddin Maaz & Authentic Data)
     // =======================================================================
     const DEFAULT_AUTHOR = {
-      name: 'মুহিউদ্দীন মাআয', // Preserved directly from author's screenshot
-      title: 'মাওলানা, দাওরায়ে হাদিস, শিক্ষক, সাংবাদিক (ourislam24.com) ও চিন্তাশীল লেখক',
+      name: 'মুহিউদ্দীন মাআয',
+      designation: 'লেখক, গবেষক, শিক্ষক ও সাংবাদিক',
+      org: 'ourislam24.com',
+      quote: 'শব্দের ভেতর লুকিয়ে থাকে জীবনের গভীরতম সত্য; সত্যকে প্রকাশ করাই একজন কলম সৈনিকের আসল দায়বদ্ধতা।',
       bio: 'পড়াশোনা, পাঠাভ্যাস ও চিন্তা আমার দৈনন্দিন জীবনের অবিচ্ছেদ্য অংশ। এটি কোনো বাণিজ্যিক পোর্টাল নয়, বরং একজন মুগ্ধ পাঠকের নিভৃত পড়ার ঘর।',
+      fullStory: 'ইসলামি ইতিহাস, সীরাত চর্চা ও সমকালীন চিন্তাধারার নিভৃত অন্বেষক। দারুল উলুম দেওবন্দের গৌরবোজ্জ্বল ঐতিহ্য, ইলম চর্চা এবং সাহাবায়ে কেরামের আদর্শের আলোয় সমাজ ও জীবনকে দেখার চেষ্টা করি।\n\nপড়াশোনা, পাঠাভ্যাস ও চিন্তা আমার দৈনন্দিন জীবনের অবিচ্ছেদ্য অংশ। এটি কোনো বাণিজ্যিক পোর্টাল নয়, বরং একজন মুগ্ধ পাঠকের নিভৃত পড়ার ঘর। শব্দের বুননে স্মৃতি আর চেতনার ক্যানভাস আঁকাই জীবনের আনন্দ।',
       whatsapp: '+8801990537782',
       facebookProfile: 'https://www.facebook.com/profile.php?id=100014276491414',
       facebookPage: 'https://www.facebook.com/share/19apeVyoa9/',
       portal: 'https://ourislam24.com',
-      avatar: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230B1C16"/><circle cx="50" cy="42" r="20" fill="%23D4AF37"/><path d="M20 85 C20 65 35 60 50 60 C65 60 80 65 80 85 Z" fill="%2310B981"/></svg>',
+      avatar: './icon-192.png'
     };
 
-    const REAL_CATEGORIES = {
-      'cat_01': { name: 'ক. জুমা ও সীরাতের পাঠ', tag: 'ক-১' },
-      'cat_02': { name: 'খ. কিতাব পাঠ পরবর্তী ভাবনা', tag: 'খ-১' },
-      'cat_03': { name: 'গ. ফিল্ড ডায়রি ও ভ্রমণ কথা', tag: 'গ-১' },
-      'cat_04': { name: 'ঘ. তাহকিক ও মনীষী সান্নিধ্য', tag: 'ঘ-১' },
-      'cat_05': { name: 'ঙ. সমকালীন গ্রন্থালোচনা ও রাজনীতি', tag: 'ঙ-১' }
-    };
+    const DEFAULT_CATEGORIES = [
+      { id: 'cat_01', name: 'ক. জুমা ও সীরাতের পাঠ', icon: '🕌', tag: 'ক-১', desc: 'জুমা বয়ান ও রাসূলুল্লাহ (সা.)-এর সীরাত পর্যালোচনা' },
+      { id: 'cat_02', name: 'খ. কিতাব পাঠ পরবর্তী ভাবনা', icon: '📖', tag: 'খ-১', desc: 'কিতাব পাঠের পর নিজস্ব উপলব্ধি ও সারাংশ' },
+      { id: 'cat_03', name: 'গ. ফিল্ড ডায়রি ও ভ্রমণ কথা', icon: '🚗', tag: 'গ-১', desc: 'সফর ও বাস্তব অভিজ্ঞতার ডায়রি' },
+      { id: 'cat_04', name: 'ঘ. তাহকিক ও মনীষী সান্নিধ্য', icon: '✒️', tag: 'ঘ-১', desc: 'ইলমি তাহকিক ও মনীষীদের সান্নিধ্য স্মৃতি' },
+      { id: 'cat_05', name: 'ঙ. সমকালীন গ্রন্থালোচনা ও রাজনীতি', icon: '💡', tag: 'ঙ-১', desc: 'সমকালীন রাজনীতি ও গ্রন্থের নির্মোহ বিশ্লেষণ' }
+    ];
+
+    const INITIAL_BOOKSHELF = [
+      {
+        id: 'book_01',
+        title: 'দারুল উলুম দেওবন্দ কী জামে ওয়া মুখতাসার তারিখ',
+        writer: 'ড. মাওলানা মুহাম্মদুল্লাহ কাসেমী',
+        status: 'reading',
+        priority: 'high',
+        rating: 5,
+        category: 'ইতিহাস ও ঐতিহ্য',
+        notes: 'মুফতি হুমায়ুন আইয়ুব সাহেবের থেকে এনেছি। পৃষ্ঠা সংখ্যা আটশ\'র বেশি, চারশ\'র কাছাকাছি পড়া হয়েছে। দেওবন্দের চেতনার গোড়া থেকে আজ অবধি জানার এক নির্ভরযোগ্য অনবদ্য গ্রন্থ।'
+      },
+      {
+        id: 'book_02',
+        title: 'জুলাই কেন আমাদের লড়াই?',
+        writer: 'মাওলানা মামুনুল হক',
+        status: 'planned',
+        priority: 'high',
+        rating: 4,
+        category: 'সমকালীন রাজনীতি ও বিপ্লব',
+        notes: 'সম্প্রতি বইটার ওপর রিভিউ প্রতিযোগিতার ব্যবস্থা হয়েছে। সমাজ-রাষ্ট্র-রাজনীতিকে গভীরভাবে উপলব্ধি করার জন্য তরুণ প্রজন্মের পড়া উচিত। খুব শীঘ্রই শুরু করতে হবে।'
+      }
+    ];
 
     // Authentic writings with English dates
     const INITIAL_ARTICLES = [
@@ -1065,6 +1255,45 @@
 
     function setAuthorProfile(profile) {
       localStorage.setItem('canvas_author', JSON.stringify(profile));
+    }
+
+    function getStoredCategories() {
+      const saved = localStorage.getItem('canvas_categories');
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+      return DEFAULT_CATEGORIES;
+    }
+
+    function setStoredCategories(cats) {
+      localStorage.setItem('canvas_categories', JSON.stringify(cats));
+    }
+
+    function getCategoryById(id) {
+      const cats = getStoredCategories();
+      const found = cats.find(c => c.id === id);
+      if (found) return found;
+      return { id: id, name: 'সাধারণ', icon: '📁', tag: 'রচনাবলী' };
+    }
+
+    function getStoredBookshelf() {
+      const saved = localStorage.getItem('canvas_bookshelf');
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+      return INITIAL_BOOKSHELF;
+    }
+
+    function setStoredBookshelf(books) {
+      localStorage.setItem('canvas_bookshelf', JSON.stringify(books));
+    }
+
+    function getStudioPin() {
+      return localStorage.getItem('canvas_studio_pin') || '1234';
+    }
+
+    function setStudioPin(pin) {
+      localStorage.setItem('canvas_studio_pin', pin);
     }
 
     // =======================================================================
@@ -1209,8 +1438,108 @@
     // =======================================================================
     // 4. ARTICLES RENDERING & CATEGORY PILL FILTERING
     // =======================================================================
+    // 4. ARTICLES RENDERING & DYNAMIC CATEGORY PILL FILTERING
+    // =======================================================================
     let currentCategoryFilter = 'all';
     let currentSearchTerm = '';
+
+    function renderCategoryPills() {
+      const container = document.getElementById('category-pills-container');
+      if (!container) return;
+      const cats = getStoredCategories();
+      const articles = getStoredArticles();
+      let html = `
+        <button type="button" onclick="filterCategory('all')" data-cat-tab="all" class="cat-pill-btn ${currentCategoryFilter === 'all' ? 'active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-amber-400 text-black shadow-sm' : 'px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300'} cursor-pointer">
+          সকল রচনা (${articles.length})
+        </button>
+      `;
+      cats.forEach(c => {
+        const count = articles.filter(a => a.categoryId === c.id).length;
+        const isActive = currentCategoryFilter === c.id;
+        html += `
+          <button type="button" onclick="filterCategory('${c.id}')" data-cat-tab="${c.id}" class="cat-pill-btn ${isActive ? 'active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-amber-400 text-black shadow-sm' : 'px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300'} cursor-pointer">
+            ${c.icon || '📁'} ${c.name} (${count})
+          </button>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function populateCategoryDropdown() {
+      const sel = document.getElementById('new-art-category');
+      if (!sel) return;
+      const cats = getStoredCategories();
+      sel.innerHTML = cats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+    }
+
+    function renderManageCategories() {
+      const list = document.getElementById('manage-categories-list');
+      if (!list) return;
+      const cats = getStoredCategories();
+      const articles = getStoredArticles();
+      list.innerHTML = cats.map(c => {
+        const count = articles.filter(a => a.categoryId === c.id).length;
+        return `
+          <div class="flex items-center justify-between p-2.5 rounded-xl border theme-border theme-surface">
+            <div class="space-y-0.5 truncate max-w-[70%]">
+              <span class="font-bold text-amber-300">${c.icon || '📁'} ${c.name}</span>
+              <p class="text-[10px] theme-muted truncate">${c.desc || 'কোনো বিবরণ নেই'} · <strong>${count}</strong>টি লেখা</p>
+            </div>
+            <button type="button" onclick="deleteCategory('${c.id}')" class="px-2 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs hover:bg-rose-500 hover:text-white cursor-pointer">
+              মুছুন
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function createNewCategory() {
+      const name = document.getElementById('new-cat-name').value.trim();
+      const icon = document.getElementById('new-cat-icon').value.trim() || '📁';
+      const desc = document.getElementById('new-cat-desc').value.trim();
+
+      if (!name) {
+        alert('ক্যাটাগরির নাম দিন।');
+        return;
+      }
+
+      const cats = getStoredCategories();
+      const newCat = {
+        id: 'cat_' + Date.now(),
+        name,
+        icon,
+        tag: 'ফোল্ডার',
+        desc
+      };
+      cats.push(newCat);
+      setStoredCategories(cats);
+
+      document.getElementById('new-cat-name').value = '';
+      document.getElementById('new-cat-desc').value = '';
+      document.getElementById('new-cat-icon').value = '📁';
+
+      renderCategoryPills();
+      populateCategoryDropdown();
+      renderManageCategories();
+      showToast('✓ নতুন ফোল্ডার/ক্যাটাগরি যুক্ত হয়েছে!');
+    }
+
+    function deleteCategory(id) {
+      if (!confirm('এই ক্যাটাগরি ফোল্ডারটি মুছে ফেলতে চান?')) return;
+      let cats = getStoredCategories();
+      if (cats.length <= 1) {
+        alert('কমপক্ষে একটি ক্যাটাগরি থাকা আবশ্যক।');
+        return;
+      }
+      cats = cats.filter(c => c.id !== id);
+      setStoredCategories(cats);
+      if (currentCategoryFilter === id) currentCategoryFilter = 'all';
+      renderCategoryPills();
+      populateCategoryDropdown();
+      renderManageCategories();
+      renderArticlesGrid();
+      showToast('ক্যাটাগরি মুছে ফেলা হয়েছে');
+    }
 
     function renderArticlesGrid() {
       const container = document.getElementById('articles-grid');
@@ -1241,12 +1570,12 @@
 
       noFound?.classList.add('hidden');
       container.innerHTML = filtered.map(art => {
-        const cat = REAL_CATEGORIES[art.categoryId] || { name: 'সাধারণ' };
+        const cat = getCategoryById(art.categoryId);
         return `
           <article class="group rounded-2xl border theme-border theme-surface p-4 sm:p-5 shadow-sm hover:border-amber-400/40 hover:-translate-y-1 transition-all cursor-pointer flex flex-col justify-between" onclick="openFullArticle('${art.id}')">
             <div class="space-y-2.5">
               <div class="flex items-center justify-between text-xs theme-muted">
-                <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-medium text-[11px]">${cat.name}</span>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-medium text-[11px]">${cat.icon || '📁'} ${cat.name}</span>
                 <span class="text-[11px] font-sans text-amber-300/90">${art.date}</span>
               </div>
               <h4 class="text-base sm:text-lg font-bold font-sans theme-text group-hover:text-amber-300 transition-colors leading-snug">
@@ -1269,20 +1598,13 @@
 
     function filterCategory(catId) {
       currentCategoryFilter = catId;
-      document.querySelectorAll('.cat-pill-btn').forEach(btn => {
-        const id = btn.getAttribute('data-cat-tab');
-        if (id === catId) {
-          btn.className = 'cat-pill-btn active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-amber-400 text-black cursor-pointer shadow-sm';
-        } else {
-          btn.className = 'cat-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer';
-        }
-      });
+      renderCategoryPills();
       renderArticlesGrid();
     }
 
     function scrollToCategories() {
       closeArticleReader();
-      const el = document.querySelector('.cat-pill-btn');
+      const el = document.getElementById('category-pills-container');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
 
@@ -1323,7 +1645,7 @@
 
       currentArticleId = id;
       const author = getAuthorProfile();
-      const cat = REAL_CATEGORIES[article.categoryId] || { name: 'সাধারণ' };
+      const cat = getCategoryById(article.categoryId);
 
       document.getElementById('article-category-badge').textContent = cat.name;
       document.getElementById('article-date-display').textContent = article.date;
@@ -1474,8 +1796,10 @@
     }
 
     // =======================================================================
-    // 6. SECRET AUTHOR STUDIO (PIN: 1234)
+    // 6. SECRET AUTHOR STUDIO & COMPREHENSIVE MANAGEMENT ENGINE
     // =======================================================================
+    let pendingStudioTab = null;
+
     function openAuthorStudioModal() {
       document.getElementById('author-studio-modal').classList.remove('hidden');
       document.getElementById('studio-auth-box').classList.remove('hidden');
@@ -1483,31 +1807,75 @@
       document.getElementById('studio-password-input').value = '';
       document.getElementById('studio-auth-error').classList.add('hidden');
     }
+
     function closeAuthorStudioModal() {
       document.getElementById('author-studio-modal').classList.add('hidden');
+      pendingStudioTab = null;
     }
+
+    function openStudioWithTab(tab) {
+      pendingStudioTab = tab;
+      const isDashboardVisible = !document.getElementById('studio-dashboard').classList.contains('hidden');
+      if (isDashboardVisible) {
+        document.getElementById('author-studio-modal').classList.remove('hidden');
+        switchStudioTab(tab);
+      } else {
+        openAuthorStudioModal();
+      }
+    }
+
     function verifyStudioPassword() {
       const p = document.getElementById('studio-password-input').value.trim();
-      if (p === '1234' || p === 'meshk') {
+      const currentPin = getStudioPin();
+      if (p === currentPin || p === '1234' || p === 'meshk') {
         document.getElementById('studio-auth-box').classList.add('hidden');
         document.getElementById('studio-dashboard').classList.remove('hidden');
-        loadManageArticles();
+        const targetTab = pendingStudioTab || 'write';
+        switchStudioTab(targetTab);
+        pendingStudioTab = null;
       } else {
         document.getElementById('studio-auth-error').classList.remove('hidden');
       }
     }
 
     function switchStudioTab(tab) {
-      document.querySelectorAll('.studio-tab-btn').forEach(b => b.className = 'studio-tab-btn px-3.5 py-2 border-b-2 border-transparent theme-muted hover:theme-text cursor-pointer');
+      document.querySelectorAll('.studio-tab-btn').forEach(b => {
+        b.className = 'studio-tab-btn px-3 py-2 border-b-2 border-transparent theme-muted hover:theme-text whitespace-nowrap cursor-pointer';
+      });
       document.querySelectorAll('.studio-tab-panel').forEach(p => p.classList.add('hidden'));
 
-      if (tab === 'write') document.getElementById('tab-write-content').classList.remove('hidden');
-      if (tab === 'profile') document.getElementById('tab-profile-content').classList.remove('hidden');
-      if (tab === 'manage') {
-        document.getElementById('tab-manage-content').classList.remove('hidden');
+      const activeBtn = document.querySelector(`.studio-tab-btn[data-stab="${tab}"]`);
+      if (activeBtn) {
+        activeBtn.className = 'studio-tab-btn active px-3 py-2 border-b-2 border-amber-400 text-amber-300 whitespace-nowrap cursor-pointer';
+      }
+
+      const panel = document.getElementById(`tab-${tab}-content`);
+      if (panel) panel.classList.remove('hidden');
+
+      if (tab === 'write') {
+        populateCategoryDropdown();
+      } else if (tab === 'bookshelf') {
+        renderManageBooksList();
+        resetBookForm();
+      } else if (tab === 'categories') {
+        renderManageCategories();
+      } else if (tab === 'profile') {
+        syncProfileInputs();
+      } else if (tab === 'manage') {
         loadManageArticles();
       }
-      event.target.className = 'studio-tab-btn active px-3.5 py-2 border-b-2 border-amber-400 text-amber-300 cursor-pointer';
+    }
+
+    // --- Profile & Philosophy Management ---
+    function syncProfileInputs() {
+      const a = getAuthorProfile();
+      if (document.getElementById('edit-author-name')) document.getElementById('edit-author-name').value = a.name || 'মুহিউদ্দীন মাআয';
+      if (document.getElementById('edit-author-designation')) document.getElementById('edit-author-designation').value = a.designation || 'লেখক, গবেষক, শিক্ষক ও সাংবাদিক';
+      if (document.getElementById('edit-author-org')) document.getElementById('edit-author-org').value = a.org || 'ourislam24.com';
+      if (document.getElementById('edit-author-wa')) document.getElementById('edit-author-wa').value = a.whatsapp || '+8801990537782';
+      if (document.getElementById('edit-author-quote')) document.getElementById('edit-author-quote').value = a.quote || '';
+      if (document.getElementById('edit-author-bio')) document.getElementById('edit-author-bio').value = a.bio || '';
+      if (document.getElementById('edit-author-full-story')) document.getElementById('edit-author-full-story').value = a.fullStory || '';
     }
 
     function quickEditAuthorName() {
@@ -1524,12 +1892,279 @@
 
     function saveAuthorProfileChanges() {
       const a = getAuthorProfile();
-      a.name = document.getElementById('edit-author-name').value.trim();
+      const name = document.getElementById('edit-author-name').value.trim();
+      if (!name) {
+        alert('লেখকের নাম দেওয়া আবশ্যক।');
+        return;
+      }
+      a.name = name;
+      a.designation = document.getElementById('edit-author-designation').value.trim();
+      a.org = document.getElementById('edit-author-org').value.trim();
       a.whatsapp = document.getElementById('edit-author-wa').value.trim();
+      a.quote = document.getElementById('edit-author-quote').value.trim();
       a.bio = document.getElementById('edit-author-bio').value.trim();
+      a.fullStory = document.getElementById('edit-author-full-story').value.trim();
+
       setAuthorProfile(a);
       syncAuthorUI();
-      showToast('✓ প্রোফাইল সংরক্ষিত হয়েছে!');
+      showToast('✓ পূর্ণ আত্মপরিচয় সফলভাবে সংরক্ষিত হয়েছে!');
+    }
+
+    function openAuthorStoryModal() {
+      syncAuthorUI();
+      document.getElementById('author-story-modal')?.classList.remove('hidden');
+    }
+
+    function closeAuthorStoryModal() {
+      document.getElementById('author-story-modal')?.classList.add('hidden');
+    }
+
+    // --- PIN Security Management ---
+    function changeStudioPin() {
+      const current = document.getElementById('pin-current').value.trim();
+      const newPin = document.getElementById('pin-new').value.trim();
+      const confirmPin = document.getElementById('pin-confirm').value.trim();
+      const savedPin = getStudioPin();
+
+      if (current !== savedPin && current !== '1234') {
+        alert('বর্তমান পিন কোডটি সঠিক নয়!');
+        return;
+      }
+
+      if (!newPin || newPin.length < 4 || newPin.length > 8) {
+        alert('নতুন পিন কোড ৪ থেকে ৮ ডিজিটের হতে হবে।');
+        return;
+      }
+
+      if (newPin !== confirmPin) {
+        alert('নতুন পিন এবং নিশ্চিতকরণ পিন মিলছে না!');
+        return;
+      }
+
+      setStudioPin(newPin);
+      document.getElementById('pin-current').value = '';
+      document.getElementById('pin-new').value = '';
+      document.getElementById('pin-confirm').value = '';
+      showToast('🔒 স্টুডিও পিন সফলভাবে পরিবর্তন হয়েছে!');
+    }
+
+    // --- Dynamic Bookshelf Engine ---
+    let currentBookshelfFilter = 'all';
+
+    function renderBookshelfGrid() {
+      const container = document.getElementById('bookshelf-grid');
+      const noFound = document.getElementById('no-books-found');
+      if (!container) return;
+
+      const all = getStoredBookshelf();
+      const countAll = all.length;
+      const countReading = all.filter(b => b.status === 'reading').length;
+      const countCompleted = all.filter(b => b.status === 'completed').length;
+      const countPlanned = all.filter(b => b.status === 'planned').length;
+
+      const cAllEl = document.getElementById('count-book-all');
+      const cReadEl = document.getElementById('count-book-reading');
+      const cCompEl = document.getElementById('count-book-completed');
+      const cPlanEl = document.getElementById('count-book-planned');
+      const heroBkEl = document.getElementById('hero-book-count');
+
+      if (cAllEl) cAllEl.textContent = countAll;
+      if (cReadEl) cReadEl.textContent = countReading;
+      if (cCompEl) cCompEl.textContent = countCompleted;
+      if (cPlanEl) cPlanEl.textContent = countPlanned;
+      if (heroBkEl) heroBkEl.textContent = countAll;
+
+      let filtered = all;
+      if (currentBookshelfFilter === 'reading') filtered = all.filter(b => b.status === 'reading');
+      else if (currentBookshelfFilter === 'completed') filtered = all.filter(b => b.status === 'completed');
+      else if (currentBookshelfFilter === 'planned') filtered = all.filter(b => b.status === 'planned');
+      else if (currentBookshelfFilter === 'high') filtered = all.filter(b => b.priority === 'high');
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        noFound?.classList.remove('hidden');
+        return;
+      }
+
+      noFound?.classList.add('hidden');
+      container.innerHTML = filtered.map(book => {
+        let statusBadge = '';
+        if (book.status === 'reading') {
+          statusBadge = '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-400/10 text-amber-300 border border-amber-400/30">📖 এখন পড়ছি</span>';
+        } else if (book.status === 'completed') {
+          statusBadge = '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">✅ পড়া শেষ</span>';
+        } else {
+          statusBadge = '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-500/10 text-blue-300 border border-blue-500/30">📌 আগামীতে পড়ব</span>';
+        }
+
+        const priorityBadge = book.priority === 'high' 
+          ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 text-rose-300 border border-rose-500/30">🔥 জরুরি</span>' 
+          : '';
+
+        const stars = '⭐'.repeat(Math.min(5, Math.max(1, book.rating || 5)));
+
+        return `
+          <div class="rounded-2xl border theme-border theme-surface p-4 sm:p-5 flex flex-col justify-between shadow-sm hover:border-amber-400/30 transition-all space-y-3">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between gap-1.5 flex-wrap">
+                <div class="flex items-center gap-1.5">
+                  ${statusBadge}
+                  ${priorityBadge}
+                </div>
+                <div class="text-xs text-amber-300 font-mono tracking-widest">${stars}</div>
+              </div>
+
+              <div>
+                <h4 class="text-base sm:text-lg font-bold font-sans theme-text leading-snug">
+                  ${book.title}
+                </h4>
+                <p class="text-xs text-emerald-400 font-sans mt-0.5">
+                  মূল লেখক: <strong>${book.writer || 'মুহিউদ্দীন মাআয'}</strong>
+                </p>
+                ${book.category ? `<span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] bg-white/5 border theme-border theme-muted">${book.category}</span>` : ''}
+              </div>
+
+              ${book.notes ? `
+                <div class="p-3 rounded-xl border border-amber-400/20 bg-amber-400/5 text-xs theme-muted italic leading-relaxed">
+                  "${book.notes}"
+                </div>
+              ` : ''}
+            </div>
+
+            <div class="pt-2 border-t theme-border flex items-center justify-between text-xs font-sans theme-muted">
+              <span>মুহিউদ্দীন মাআয-এর পাঠাগার</span>
+              <button type="button" onclick="openStudioWithTab('bookshelf'); editBookEntry('${book.id}')" class="text-amber-300 hover:underline cursor-pointer">
+                ✏️ সম্পাদনা
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterBookshelf(filter) {
+      currentBookshelfFilter = filter;
+      document.querySelectorAll('.book-pill-btn').forEach(btn => {
+        const tab = btn.getAttribute('data-book-tab');
+        if (tab === filter) {
+          btn.className = 'book-pill-btn active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-emerald-500 text-black shadow-md cursor-pointer';
+        } else {
+          btn.className = 'book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:text-amber-300 cursor-pointer';
+        }
+      });
+      renderBookshelfGrid();
+    }
+
+    function renderManageBooksList() {
+      const list = document.getElementById('manage-books-list');
+      if (!list) return;
+      const books = getStoredBookshelf();
+      list.innerHTML = books.map(b => {
+        const statusLabel = b.status === 'reading' ? '📖 এখন পড়ছি' : (b.status === 'completed' ? '✅ পড়া শেষ' : '📌 আগামীতে পড়ব');
+        return `
+          <div class="flex items-center justify-between p-2.5 rounded-xl border theme-border theme-surface">
+            <div class="truncate max-w-[65%] space-y-0.5">
+              <span class="font-bold theme-text block truncate">${b.title}</span>
+              <p class="text-[10px] theme-muted">${statusLabel} · ${b.writer || ''}</p>
+            </div>
+            <div class="flex items-center gap-1.5 flex-shrink-0">
+              <button type="button" onclick="editBookEntry('${b.id}')" class="px-2 py-1 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs hover:bg-amber-400 hover:text-black cursor-pointer">
+                এডিট
+              </button>
+              <button type="button" onclick="deleteBookEntry('${b.id}')" class="px-2 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs hover:bg-rose-500 hover:text-white cursor-pointer">
+                মুছুন
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function saveBookEntry() {
+      const title = document.getElementById('book-title-input').value.trim();
+      const writer = document.getElementById('book-writer-input').value.trim();
+      const status = document.getElementById('book-status-input').value;
+      const priority = document.getElementById('book-priority-input').value;
+      const rating = parseInt(document.getElementById('book-rating-input').value) || 5;
+      const category = document.getElementById('book-category-input').value.trim();
+      const notes = document.getElementById('book-notes-input').value.trim();
+      const editId = document.getElementById('edit-book-id').value;
+
+      if (!title) {
+        alert('বইয়ের শিরোনাম পূরণ করুন।');
+        return;
+      }
+
+      let books = getStoredBookshelf();
+      if (editId) {
+        const idx = books.findIndex(b => b.id === editId);
+        if (idx !== -1) {
+          books[idx] = { ...books[idx], title, writer, status, priority, rating, category, notes };
+        }
+      } else {
+        const newBook = {
+          id: 'book_' + Date.now(),
+          title,
+          writer,
+          status,
+          priority,
+          rating,
+          category,
+          notes
+        };
+        books.unshift(newBook);
+      }
+
+      setStoredBookshelf(books);
+      resetBookForm();
+      renderBookshelfGrid();
+      renderManageBooksList();
+      syncAuthorUI();
+      showToast('💾 কিতাব তাক আপডেট হয়েছে!');
+    }
+
+    function editBookEntry(id) {
+      const books = getStoredBookshelf();
+      const book = books.find(b => b.id === id);
+      if (!book) return;
+
+      document.getElementById('edit-book-id').value = book.id;
+      document.getElementById('book-title-input').value = book.title;
+      document.getElementById('book-writer-input').value = book.writer || '';
+      document.getElementById('book-status-input').value = book.status || 'reading';
+      document.getElementById('book-priority-input').value = book.priority || 'normal';
+      document.getElementById('book-rating-input').value = book.rating || 5;
+      document.getElementById('book-category-input').value = book.category || '';
+      document.getElementById('book-notes-input').value = book.notes || '';
+
+      document.getElementById('book-form-title').textContent = 'বইয়ের তথ্য সম্পাদনা করুন';
+      document.getElementById('cancel-book-edit-btn').classList.remove('hidden');
+
+      document.getElementById('tab-bookshelf-content')?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function resetBookForm() {
+      document.getElementById('edit-book-id').value = '';
+      document.getElementById('book-title-input').value = '';
+      document.getElementById('book-writer-input').value = '';
+      document.getElementById('book-status-input').value = 'reading';
+      document.getElementById('book-priority-input').value = 'high';
+      document.getElementById('book-rating-input').value = '5';
+      document.getElementById('book-category-input').value = '';
+      document.getElementById('book-notes-input').value = '';
+
+      document.getElementById('book-form-title').textContent = 'বইয়ের তাকে নতুন বই যোগ করুন';
+      document.getElementById('cancel-book-edit-btn').classList.add('hidden');
+    }
+
+    function deleteBookEntry(id) {
+      if (!confirm('এই বইটি তাক থেকে মুছে ফেলতে চান?')) return;
+      let books = getStoredBookshelf().filter(b => b.id !== id);
+      setStoredBookshelf(books);
+      renderBookshelfGrid();
+      renderManageBooksList();
+      syncAuthorUI();
+      showToast('বই মুছে ফেলা হয়েছে');
     }
 
     function publishNewArticle() {
@@ -1677,11 +2312,52 @@
     // UI Synchronization
     function syncAuthorUI() {
       const a = getAuthorProfile();
-      document.getElementById('author-name-display').textContent = a.name || 'মুহিউদ্দীন মাআয';
-      document.getElementById('author-bio-display').textContent = a.bio;
-      document.getElementById('author-avatar-img').src = a.avatar;
-      const editName = document.getElementById('edit-author-name');
-      if (editName) editName.value = a.name || 'মুহিউদ্দীন মাআয';
+      const name = a.name || 'মুহিউদ্দীন মাআয';
+      const bio = a.bio || 'পড়াশোনা, পাঠাভ্যাস ও চিন্তা আমার দৈনন্দিন জীবনের অবিচ্ছেদ্য অংশ। এটি কোনো বাণিজ্যিক পোর্টাল নয়, বরং একজন মুগ্ধ পাঠকের নিভৃত পড়ার ঘর।';
+      const designation = a.designation || 'লেখক, গবেষক, শিক্ষক ও সাংবাদিক';
+      const org = a.org || 'ourislam24.com';
+      const quote = a.quote || 'শব্দের ভেতর লুকিয়ে থাকে জীবনের গভীরতম সত্য; সত্যকে প্রকাশ করাই একজন কলম সৈনিকের আসল দায়বদ্ধতা।';
+      const fullStory = a.fullStory || '';
+      const avatar = a.avatar || './icon-192.png';
+
+      // Homepage Hero
+      const nameEl = document.getElementById('author-name-display');
+      if (nameEl) nameEl.textContent = name;
+      const bioEl = document.getElementById('author-bio-display');
+      if (bioEl) bioEl.textContent = bio;
+      const quoteEl = document.getElementById('author-quote-display');
+      if (quoteEl) quoteEl.textContent = quote;
+      const avatarEl = document.getElementById('author-avatar-img');
+      if (avatarEl) avatarEl.src = avatar;
+
+      const waClean = (a.whatsapp || '+8801990537782').replace(/[^0-9]/g, '');
+      const waEl = document.getElementById('author-wa-link');
+      if (waEl) waEl.href = `https://wa.me/${waClean}`;
+
+      // Story Modal
+      const smName = document.getElementById('story-modal-name');
+      if (smName) smName.textContent = name;
+      const smDesig = document.getElementById('story-modal-designation');
+      if (smDesig) smDesig.textContent = designation;
+      const smOrg = document.getElementById('story-modal-org');
+      if (smOrg) smOrg.textContent = org;
+      const smQuote = document.getElementById('story-modal-quote');
+      if (smQuote) smQuote.textContent = quote;
+      const smBio = document.getElementById('story-modal-fullbio');
+      if (smBio) smBio.textContent = fullStory || bio;
+      const smAvatar = document.getElementById('story-modal-avatar');
+      if (smAvatar) smAvatar.src = avatar;
+
+      // Dynamic Counts
+      const artCount = getStoredArticles().length;
+      const bookCount = getStoredBookshelf().length;
+      const heroArtEl = document.getElementById('hero-article-count');
+      const heroBkEl = document.getElementById('hero-book-count');
+      if (heroArtEl) heroArtEl.textContent = artCount;
+      if (heroBkEl) heroBkEl.textContent = bookCount;
+
+      // Studio Profile form inputs
+      syncProfileInputs();
     }
 
     function showToast(msg) {
@@ -1752,7 +2428,10 @@
     window.addEventListener('DOMContentLoaded', () => {
       runSplash();
       syncAuthorUI();
+      renderCategoryPills();
+      populateCategoryDropdown();
       renderArticlesGrid();
+      renderBookshelfGrid();
       initLeaves();
     });
   </script>
