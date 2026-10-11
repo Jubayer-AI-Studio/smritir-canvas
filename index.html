@@ -2,7 +2,7 @@
 <html lang="bn" class="scroll-smooth theme-dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   
   <!-- Zero-Cache Meta Tags: Guarantees Fresh Content on Every Mobile Refresh -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -11,13 +11,13 @@
 
   <!-- Mobile Instant Invalidation Engine -->
   <script>
-    const APP_BUILD_REV = 'v6_unified_20261011_clean';
+    const APP_BUILD_REV = 'v7_stable_rocksolid_20261011';
     if (localStorage.getItem('canvas_app_rev') !== APP_BUILD_REV) {
       localStorage.setItem('canvas_app_rev', APP_BUILD_REV);
       if ('caches' in window) {
         caches.keys().then(keys => {
           keys.forEach(k => {
-            if (k !== 'smritir-canvas-v6-unified') caches.delete(k);
+            if (k !== 'smritir-canvas-v7-unified') caches.delete(k);
           });
         });
       }
@@ -60,10 +60,59 @@
   </script>
 
   <style>
-    /* Global Typography Standard */
-    * {
+    /* Global Typography & Zero-Wobble Strict Standard */
+    *, *::before, *::after {
+      box-sizing: border-box;
       font-family: 'Hind Siliguri', sans-serif;
       -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Mobile Stability: Completely Locks Horizontal Sway / Jitter */
+    html {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden !important;
+      overscroll-behavior-x: none !important;
+      overscroll-behavior-y: auto;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.35s ease, color 0.35s ease;
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden !important;
+      overscroll-behavior-x: none !important;
+      overscroll-behavior-y: auto;
+      touch-action: pan-y !important; /* Strictly allows only vertical scrolling, blocks horizontal wobble! */
+      -webkit-overflow-scrolling: touch;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Keep main layout containers within screen boundary */
+    main, article, section, header, nav, footer {
+      max-width: 100%;
+    }
+
+    /* Dedicated horizontal scrollers (category pills, bookshelf tabs) */
+    .overflow-x-auto,
+    .overflow-x-scroll,
+    #category-pills-container,
+    .scrollbar-none {
+      touch-action: pan-x pan-y !important;
+      overscroll-behavior-x: contain !important;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Text wrapping protection */
+    #reader-view, #article-body-content, article, p, h1, h2, h3, h4, blockquote {
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
     }
 
     /* =================================================================== */
@@ -98,14 +147,6 @@
       --card-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.06);
     }
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      transition: background-color 0.35s ease, color 0.35s ease;
-      position: relative;
-      overflow-x: hidden;
-    }
-
     .theme-surface { background-color: var(--surface-color); }
     .theme-card { background-color: var(--card-color); }
     .theme-border { border-color: var(--border-color); }
@@ -131,8 +172,8 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
       z-index: 0;
     }
@@ -285,30 +326,30 @@
         </button>
 
         <!-- PWA Native Install Button (Working 1-click trigger) -->
-        <button type="button" id="header-install-btn" onclick="openInstallModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-xl font-medium border theme-border theme-card theme-muted hover:theme-text hover:border-amber-400/40 transition-colors cursor-pointer" title="মোবাইলে অ্যাপ হিসেবে ইনস্টল করুন">
+        <button type="button" id="header-install-btn" onclick="openInstallModal()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-xl font-medium border theme-border theme-card theme-muted hover:theme-text hover:border-amber-400/40 transition-colors cursor-pointer" title="মোবাইলে অ্যাপ হিসেবে ইনস্টল করুন">
           <span>📲</span>
           <span class="hidden sm:inline">অ্যাপ নামান</span>
         </button>
 
         <!-- Direct Instant Mobile Sync & Refresh Button -->
-        <button type="button" onclick="forceAppUpdate()" class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-xl border border-amber-400/30 bg-amber-400/10 text-amber-300 hover:bg-amber-400 hover:text-black transition-all cursor-pointer text-xs" title="নতুন আপডেট রিফ্রেশ করুন">
+        <button type="button" onclick="forceAppUpdate()" class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-xl border border-amber-400/30 bg-amber-400/10 text-amber-300 hover:bg-amber-400 hover:text-black transition-all cursor-pointer text-xs flex-shrink-0" title="নতুন আপডেট রিফ্রেশ করুন">
           <span>🔄</span>
           <span class="hidden sm:inline font-bold">রিফ্রেশ</span>
         </button>
 
         <!-- Pure Dark/Light Theme Switcher Button -->
-        <button type="button" id="theme-toggle-btn" onclick="cycleTheme()" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:theme-text transition-colors cursor-pointer text-xs" title="ডার্ক ও লাইট মোড পরিবর্তন">
+        <button type="button" id="theme-toggle-btn" onclick="cycleTheme()" class="inline-flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:theme-text transition-colors cursor-pointer text-xs flex-shrink-0" title="ডার্ক ও লাইট মোড পরিবর্তন">
           <span id="theme-icon">🌙</span>
           <span id="theme-label" class="hidden sm:inline font-medium">ডার্ক</span>
         </button>
 
         <!-- Language Switcher Button -->
-        <button type="button" onclick="toggleLanguage()" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:theme-text transition-colors cursor-pointer text-xs" title="ভাষা পরিবর্তন (বাংলা / English)">
+        <button type="button" onclick="toggleLanguage()" class="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:theme-text transition-colors cursor-pointer text-xs flex-shrink-0" title="ভাষা পরিবর্তন (বাংলা / English)">
           <span id="lang-label" class="font-bold text-amber-300">বাং</span>
         </button>
 
-        <!-- Secret Author Studio Button (PIN: 1234) -->
-        <button type="button" onclick="openAuthorStudioModal()" class="p-2 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 transition-colors cursor-pointer" title="লেখক স্টুডিও" aria-label="Author Studio">
+        <!-- Secret Author Studio Button (Desktop header only; Mobile has dedicated dock icon) -->
+        <button type="button" onclick="openAuthorStudioModal()" class="hidden sm:inline-flex p-2 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 transition-colors cursor-pointer" title="লেখক স্টুডিও" aria-label="Author Studio">
           🔐
         </button>
 
@@ -584,24 +625,26 @@
     <div id="reader-view" class="hidden space-y-6">
       
       <!-- Top Reading Controls -->
-      <div class="sticky top-14 z-30 flex items-center justify-between gap-2 p-2.5 rounded-2xl theme-surface border theme-border shadow-md backdrop-blur-xl">
-        <button type="button" onclick="closeArticleReader()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border theme-border text-xs font-semibold hover:border-amber-400 hover:text-amber-300 cursor-pointer">
-          <span>← সব লেখায় ফিরুন</span>
+      <div class="sticky top-14 z-30 flex items-center justify-between gap-2 p-2 sm:p-2.5 rounded-2xl theme-surface border theme-border shadow-md backdrop-blur-xl max-w-full">
+        <button type="button" onclick="closeArticleReader()" class="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border theme-border text-xs font-semibold hover:border-amber-400 hover:text-amber-300 cursor-pointer flex-shrink-0">
+          <span>←</span>
+          <span class="hidden sm:inline">সব লেখায়</span>
+          <span>ফিরুন</span>
         </button>
 
-        <div class="flex items-center gap-1.5">
-          <div class="flex items-center gap-1 border theme-border rounded-xl p-0.5 bg-white/5">
-            <button type="button" onclick="adjustFontSize(-2)" class="px-2 py-0.5 text-xs rounded hover:bg-white/10 cursor-pointer">A-</button>
-            <button type="button" onclick="resetFontSize()" class="px-2 py-0.5 text-xs font-bold rounded hover:bg-white/10 cursor-pointer">A</button>
-            <button type="button" onclick="adjustFontSize(2)" class="px-2 py-0.5 text-xs rounded hover:bg-white/10 cursor-pointer">A+</button>
+        <div class="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
+          <div class="flex items-center gap-0.5 sm:gap-1 border theme-border rounded-xl p-0.5 bg-white/5">
+            <button type="button" onclick="adjustFontSize(-2)" class="px-1.5 sm:px-2 py-0.5 text-xs rounded hover:bg-white/10 cursor-pointer" title="ফন্ট ছোট">A-</button>
+            <button type="button" onclick="resetFontSize()" class="px-1.5 sm:px-2 py-0.5 text-xs font-bold rounded hover:bg-white/10 cursor-pointer" title="স্বাভাবিক ফন্ট">A</button>
+            <button type="button" onclick="adjustFontSize(2)" class="px-1.5 sm:px-2 py-0.5 text-xs rounded hover:bg-white/10 cursor-pointer" title="ফন্ট বড়">A+</button>
           </div>
-          <button type="button" onclick="window.print()" class="p-1.5 rounded-xl border theme-border theme-muted hover:theme-text cursor-pointer" title="প্রিন্ট">🖨️</button>
+          <button type="button" onclick="window.print()" class="hidden sm:inline-flex p-1.5 rounded-xl border theme-border theme-muted hover:theme-text cursor-pointer" title="প্রিন্ট">🖨️</button>
           <button type="button" onclick="copyCurrentArticleLink()" class="p-1.5 rounded-xl border theme-border theme-muted hover:theme-text cursor-pointer" title="লিংক কপি">🔗</button>
         </div>
       </div>
 
       <!-- Main Reading Parchment Card -->
-      <article class="rounded-3xl border theme-border theme-surface p-5 sm:p-10 shadow-xl space-y-6">
+      <article class="rounded-3xl border theme-border theme-surface p-4 sm:p-8 md:p-10 shadow-xl space-y-6 max-w-full overflow-hidden">
         
         <header class="space-y-3 border-b theme-border pb-6">
           <div class="flex flex-wrap items-center gap-2 text-xs font-sans theme-muted">
@@ -633,9 +676,9 @@
         <div id="article-tags-container" class="flex flex-wrap gap-1.5 pt-4 border-t theme-border text-xs"></div>
 
         <!-- Social Share Bar -->
-        <div class="pt-4 border-t theme-border flex items-center justify-between gap-3 text-xs">
+        <div class="pt-4 border-t theme-border flex flex-wrap items-center justify-between gap-2 text-xs">
           <span class="text-amber-300/90 font-medium">✓ লেখাটি অফলাইনে সেভ রয়েছে</span>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 flex-shrink-0">
             <button type="button" onclick="shareArticleFacebook()" class="px-3 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 font-medium cursor-pointer">ফেসবুক</button>
             <button type="button" onclick="shareArticleWhatsApp()" class="px-3 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 font-medium cursor-pointer">হোয়াটসঅ্যাপ</button>
           </div>

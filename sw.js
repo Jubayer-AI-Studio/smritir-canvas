@@ -1,10 +1,10 @@
 // =====================================================================
-// 'স্মৃতির ক্যানভাস' (Smritir Canvas) — PWA Service Worker (v6 Unified)
+// 'স্মৃতির ক্যানভাস' (Smritir Canvas) — PWA Service Worker (v7 Rock-Solid)
 // Strategy: Network-First for Navigation (Instant Mobile Sync & Fresh HTML)
 // Fallback: Cache-First for Assets, Offline Reader Resilience
 // =====================================================================
 
-const CACHE_NAME = 'smritir-canvas-v6-unified';
+const CACHE_NAME = 'smritir-canvas-v7-unified';
 const STATIC_ASSETS = [
   './',
   './index.html',
