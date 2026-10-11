@@ -1,8 +1,29 @@
 <!DOCTYPE html>
-<html lang="bn" class="scroll-smooth theme-emerald">
+<html lang="bn" class="scroll-smooth theme-dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  
+  <!-- Zero-Cache Meta Tags: Guarantees Fresh Content on Every Mobile Refresh -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- Mobile Instant Invalidation Engine -->
+  <script>
+    const APP_BUILD_REV = 'v6_unified_20261011_clean';
+    if (localStorage.getItem('canvas_app_rev') !== APP_BUILD_REV) {
+      localStorage.setItem('canvas_app_rev', APP_BUILD_REV);
+      if ('caches' in window) {
+        caches.keys().then(keys => {
+          keys.forEach(k => {
+            if (k !== 'smritir-canvas-v6-unified') caches.delete(k);
+          });
+        });
+      }
+    }
+  </script>
+
   <title>স্মৃতির ক্যানভাস — মুহিউদ্দীন মাআয</title>
   <meta name="description" content="মুহিউদ্দীন মাআয-এর ব্যক্তিগত সাহিত্যিক ব্লগ, কিতাব তাক, ফিল্ড ডায়রি ও চিন্তার নিভৃত আঙিনা।">
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
@@ -10,13 +31,13 @@
 
   <!-- PWA Manifest & Meta -->
   <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#081410">
+  <meta name="theme-color" content="#0E1311">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="স্মৃতির ক্যানভাস">
 
-  <!-- Google Fonts: Hind Siliguri (Global Literary Standard), Amiri, Noto Serif -->
+  <!-- Google Fonts: Hind Siliguri, Amiri, Noto Serif -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
@@ -32,21 +53,6 @@
             sans: ['"Hind Siliguri"', 'sans-serif'],
             serif: ['"Noto Serif Bengali"', '"Hind Siliguri"', '"Amiri"', 'serif'],
             mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
-          },
-          colors: {
-            leaf: {
-              50: '#F2F8F5',
-              100: '#E1EFE8',
-              200: '#C2DFD2',
-              300: '#9BC7B5',
-              400: '#6EA992',
-              500: '#488A71',
-              600: '#346E58',
-              700: '#285544',
-              800: '#1F4235',
-              900: '#142E25',
-              950: '#0B1A14'
-            }
           }
         }
       }
@@ -60,57 +66,36 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* 4 Distinct, Peaceful Themes */
-    /* Theme 1: Signature Serene Botanical Emerald (সাদামাটা সবুজ ও পাতার শান্ত পরিবেশ) */
-    :root, html.theme-emerald {
-      --bg-color: #081410;
-      --surface-color: #0D1E18;
-      --card-color: #122820;
-      --border-color: #1D3B30;
-      --text-color: #F1F6F3;
-      --muted-color: #8CA89C;
+    /* =================================================================== */
+    /* UNIFIED, ARISTOCRATIC & HIGH-CONTRAST THEMES (ডার্ক ও লাইট) */
+    /* =================================================================== */
+
+    /* 1. Deep Obsidian Charcoal (প্রধান থিম: শান্ত, গম্ভীর ও উচ্চ দৃশ্যমান ডার্ক মোড) */
+    :root, html.theme-dark {
+      --bg-color: #0E1311;
+      --surface-color: #161D19;
+      --card-color: #1D2622;
+      --border-color: #26332C;
+      --text-color: #F3F5F4;
+      --muted-color: #92A39B;
       --accent-color: #D4AF37;
-      --leaf-tint: rgba(16, 185, 129, 0.08);
-      --dock-bg: rgba(13, 30, 24, 0.92);
+      --accent-hover: #C39F2E;
+      --dock-bg: rgba(22, 29, 25, 0.95);
+      --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.45);
     }
 
-    /* Theme 2: Warm Daylight Paper (ক্লাসিক পেপার ও মৃদু জলপাই পাতা) */
-    html.theme-paper {
-      --bg-color: #FAF7F2;
+    /* 2. Pure Natural Paper (পরিচ্ছন্ন ও মার্জিত লাইট মোড) */
+    html.theme-light {
+      --bg-color: #F5F7F6;
       --surface-color: #FFFFFF;
-      --card-color: #F5EFE6;
-      --border-color: #E2D9CC;
-      --text-color: #1B2922;
-      --muted-color: #697870;
-      --accent-color: #9A3412;
-      --leaf-tint: rgba(46, 117, 89, 0.04);
-      --dock-bg: rgba(255, 255, 255, 0.94);
-    }
-
-    /* Theme 3: Sepia Manuscript (সেপিয়া ও প্রাচীন কিতাব রিডার) */
-    html.theme-sepia {
-      --bg-color: #F3EBDD;
-      --surface-color: #EAE0D0;
-      --card-color: #E2D5C3;
-      --border-color: #D0C0AA;
-      --text-color: #332415;
-      --muted-color: #6E5743;
-      --accent-color: #854D0E;
-      --leaf-tint: rgba(133, 77, 14, 0.04);
-      --dock-bg: rgba(234, 224, 208, 0.94);
-    }
-
-    /* Theme 4: Midnight True Black (শান্ত রাতের অ্যামোলেড ব্ল্যাক) */
-    html.theme-night {
-      --bg-color: #020504;
-      --surface-color: #070F0C;
-      --card-color: #0E1A16;
-      --border-color: #182C24;
-      --text-color: #F4F7F5;
-      --muted-color: #899E95;
-      --accent-color: #34D399;
-      --leaf-tint: rgba(52, 211, 153, 0.06);
-      --dock-bg: rgba(7, 15, 12, 0.94);
+      --card-color: #EDF1EE;
+      --border-color: #DCE3DF;
+      --text-color: #111915;
+      --muted-color: #5A6B63;
+      --accent-color: #A3791D;
+      --accent-hover: #8A6517;
+      --dock-bg: rgba(255, 255, 255, 0.96);
+      --card-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.06);
     }
 
     body {
@@ -300,15 +285,21 @@
         </button>
 
         <!-- PWA Native Install Button (Working 1-click trigger) -->
-        <button type="button" id="header-install-btn" onclick="openInstallModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-xl font-medium border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/10 transition-colors cursor-pointer" title="মোবাইলে অ্যাপ হিসেবে ইনস্টল করুন">
+        <button type="button" id="header-install-btn" onclick="openInstallModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-xl font-medium border theme-border theme-card theme-muted hover:theme-text hover:border-amber-400/40 transition-colors cursor-pointer" title="মোবাইলে অ্যাপ হিসেবে ইনস্টল করুন">
           <span>📲</span>
           <span class="hidden sm:inline">অ্যাপ নামান</span>
         </button>
 
-        <!-- 4-Mode Theme Switcher Button -->
-        <button type="button" id="theme-toggle-btn" onclick="cycleTheme()" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:theme-text transition-colors cursor-pointer text-xs" title="থিম পরিবর্তন করুন (সবুজ পাতা · দিন · সেপিয়া · রাত)">
-          <span id="theme-icon">🌿</span>
-          <span id="theme-label" class="hidden sm:inline font-medium">সবুজ পাতা</span>
+        <!-- Direct Instant Mobile Sync & Refresh Button -->
+        <button type="button" onclick="forceAppUpdate()" class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-xl border border-amber-400/30 bg-amber-400/10 text-amber-300 hover:bg-amber-400 hover:text-black transition-all cursor-pointer text-xs" title="নতুন আপডেট রিফ্রেশ করুন">
+          <span>🔄</span>
+          <span class="hidden sm:inline font-bold">রিফ্রেশ</span>
+        </button>
+
+        <!-- Pure Dark/Light Theme Switcher Button -->
+        <button type="button" id="theme-toggle-btn" onclick="cycleTheme()" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:theme-text transition-colors cursor-pointer text-xs" title="ডার্ক ও লাইট মোড পরিবর্তন">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-label" class="hidden sm:inline font-medium">ডার্ক</span>
         </button>
 
         <!-- Language Switcher Button -->
@@ -317,7 +308,7 @@
         </button>
 
         <!-- Secret Author Studio Button (PIN: 1234) -->
-        <button type="button" onclick="openAuthorStudioModal()" class="p-2 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 transition-colors cursor-pointer" title="লেখক স্টুডিও (সিক্রেট পিন: ১২৩৪)" aria-label="Author Studio">
+        <button type="button" onclick="openAuthorStudioModal()" class="p-2 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 transition-colors cursor-pointer" title="লেখক স্টুডিও" aria-label="Author Studio">
           🔐
         </button>
 
@@ -325,10 +316,13 @@
 
     </div>
 
-    <!-- Mobile Subheader for Date (Ensures mobile users also see English Date clearly) -->
+    <!-- Mobile Subheader for Date & Fast Sync -->
     <div class="md:hidden border-t theme-border px-4 py-1.5 flex items-center justify-between text-[11px] font-sans theme-muted">
-      <span id="mobile-live-date" class="font-medium text-emerald-300">Saturday, 10 October 2026</span>
-      <span id="mobile-live-clock" class="font-mono text-amber-300 font-bold">11:58 PM</span>
+      <span id="mobile-live-date" class="font-medium theme-text">Saturday, 10 October 2026</span>
+      <div class="flex items-center gap-2">
+        <span id="mobile-live-clock" class="font-mono text-amber-300 font-bold">11:58 PM</span>
+        <button type="button" onclick="forceAppUpdate()" class="text-[10px] text-amber-300 font-bold border border-amber-400/30 bg-amber-400/10 px-2 py-0.5 rounded-lg cursor-pointer">🔄 রিফ্রেশ</button>
+      </div>
     </div>
   </header>
 
@@ -368,36 +362,36 @@
                   <h2 id="author-name-display" class="text-2xl sm:text-3xl font-bold font-sans text-amber-300">
                     মুহিউদ্দীন মাআয
                   </h2>
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-semibold">
-                    ✓ ইসলামিক স্কলার
+                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-amber-400/30 bg-amber-400/10 text-amber-300 text-[11px] font-semibold">
+                    ✓ সত্যায়িত লেখক প্রোফাইল
                   </span>
                   <button type="button" onclick="quickEditAuthorName()" class="text-xs theme-muted hover:text-amber-300 underline cursor-pointer ml-1" title="নাম সম্পাদনা">
-                    [নাম লিখুন ✎]
+                    [নাম পরিবর্তন ✎]
                   </button>
                 </div>
 
-                <!-- Credential Badges -->
-                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 mt-1.5">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-400/10 text-amber-300 border border-amber-400/20">মাওলানা</span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">দাওরায়ে হাদিস</span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-purple-500/10 text-purple-300 border border-purple-500/20">লেখক</span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-500/10 text-blue-300 border border-blue-500/20">সাংবাদিক (ourislam24.com)</span>
-                  <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-500/10 text-rose-300 border border-rose-500/20">শিক্ষক</span>
+                <!-- Credential Badges (Unified, Aristocratic & Mature) -->
+                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 mt-2">
+                  <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-medium border theme-border theme-card theme-muted">মাওলানা</span>
+                  <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-medium border theme-border theme-card theme-muted">দাওরায়ে হাদিস</span>
+                  <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-medium border theme-border theme-card theme-muted">লেখক ও গবেষক</span>
+                  <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-medium border theme-border theme-card theme-muted">সাংবাদিক (ourislam24.com)</span>
+                  <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-medium border theme-border theme-card theme-muted">শিক্ষক</span>
                 </div>
               </div>
 
-              <!-- Social Connect Buttons -->
+              <!-- Social Connect Buttons (Unified, Clean Border Style) -->
               <div class="flex items-center justify-center sm:justify-end gap-1.5 pt-1 sm:pt-0 flex-wrap">
-                <a id="author-wa-link" href="https://wa.me/8801990537782" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#25D366] text-white text-[11px] font-bold hover:scale-105 transition-all">
-                  <span>WhatsApp</span>
+                <a id="author-wa-link" href="https://wa.me/8801990537782" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 hover:border-amber-400/40 text-[11px] font-medium transition-all">
+                  <span>💬 WhatsApp</span>
                 </a>
-                <a id="author-fb-profile" href="https://www.facebook.com/profile.php?id=100014276491414" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#1877F2] text-white text-[11px] font-bold hover:scale-105 transition-all">
+                <a id="author-fb-profile" href="https://www.facebook.com/profile.php?id=100014276491414" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 hover:border-amber-400/40 text-[11px] font-medium transition-all">
                   <span>ফেসবুক</span>
                 </a>
-                <a id="author-fb-page" href="https://www.facebook.com/share/19apeVyoa9/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border theme-border theme-card theme-text text-[11px] font-medium hover:border-amber-400/40">
+                <a id="author-fb-page" href="https://www.facebook.com/share/19apeVyoa9/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 hover:border-amber-400/40 text-[11px] font-medium transition-all">
                   <span>পেজ ↗</span>
                 </a>
-                <a href="https://ourislam24.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border theme-border theme-card text-amber-300 text-[11px] font-medium hover:border-amber-400/40">
+                <a href="https://ourislam24.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border border-amber-400/30 bg-amber-400/10 text-amber-300 text-[11px] font-medium hover:bg-amber-400 hover:text-black transition-all">
                   <span>ourislam24 ↗</span>
                 </a>
               </div>
@@ -419,10 +413,11 @@
                 <span>·</span>
                 <span>📖 <strong id="hero-book-count">২</strong>টি বই তাক</span>
                 <span>·</span>
-                <span class="text-emerald-400">⚡ অফলাইন সক্রিয়</span>
+                <span>·</span>
+                <span class="text-amber-300/80">⚡ অফলাইন সক্রিয়</span>
               </div>
               <div class="flex items-center gap-3">
-                <button type="button" onclick="openAuthorStoryModal()" class="text-emerald-400 font-bold hover:underline cursor-pointer flex items-center gap-1">
+                <button type="button" onclick="openAuthorStoryModal()" class="text-amber-300 font-bold hover:underline cursor-pointer flex items-center gap-1">
                   <span>📖 সম্পূর্ণ আত্মপরিচয় পড়ুন</span>
                 </button>
                 <span>·</span>
@@ -447,7 +442,7 @@
             <span>প্রধান নির্বাচিত রচনা (ক-১)</span>
           </div>
           <div class="text-xs font-sans theme-muted flex items-center gap-2">
-            <span class="text-emerald-400 font-medium">ক. জুমা ও সীরাতের পাঠ</span>
+            <span class="text-amber-300 font-medium">ক. জুমা ও সীরাতের পাঠ</span>
             <span>·</span>
             <span class="text-amber-300 font-medium">Friday, 10 October 2026</span>
           </div>
@@ -484,14 +479,14 @@
         
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <span class="text-xs text-emerald-400 font-semibold tracking-wider uppercase">📑 বিষয়ভিত্তিক পাঠাগার</span>
+            <span class="text-xs text-amber-300 font-semibold tracking-wider uppercase">📑 বিষয়ভিত্তিক পাঠাগার</span>
             <h3 class="text-xl sm:text-2xl font-bold font-sans theme-text">সকল রচনা ও চিন্তাপত্র</h3>
           </div>
 
           <!-- Real-Time Search Bar -->
           <div class="relative w-full sm:w-64">
             <input type="text" id="live-search-input" oninput="handleSearch(this.value)" placeholder="লেখা খুঁজুন..." class="w-full px-3.5 py-2 pl-9 rounded-xl border theme-border theme-card theme-text text-xs focus:outline-none focus:border-amber-400">
-            <svg class="w-3.5 h-3.5 text-emerald-400/60 absolute left-3 top-3 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <svg class="w-3.5 h-3.5 text-amber-400/60 absolute left-3 top-3 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             <button type="button" id="clear-search-btn" onclick="clearSearch()" class="hidden absolute right-2.5 top-2.5 text-xs theme-muted hover:theme-text">✕</button>
           </div>
         </div>
@@ -521,7 +516,7 @@
       <section id="bookshelf-section" class="rounded-3xl border theme-border theme-surface p-5 sm:p-7 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b theme-border pb-3.5">
           <div>
-            <span class="text-xs text-emerald-400 font-semibold tracking-wider uppercase flex items-center gap-1.5">
+            <span class="text-xs text-amber-300 font-semibold tracking-wider uppercase flex items-center gap-1.5">
               <span>📚</span><span>ব্যক্তিগত পাঠাগার ও পঠন ডায়েরি</span>
             </span>
             <h3 class="text-xl sm:text-2xl font-bold font-sans text-amber-300 mt-1">
@@ -534,22 +529,22 @@
           </button>
         </div>
 
-        <!-- Bookshelf Filter Pills -->
+        <!-- Bookshelf Filter Pills (Unified Aristocratic Styling) -->
         <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none text-xs font-sans">
-          <button type="button" onclick="filterBookshelf('all')" data-book-tab="all" class="book-pill-btn active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-emerald-500 text-black shadow-md cursor-pointer">
+          <button type="button" onclick="filterBookshelf('all')" data-book-tab="all" class="book-pill-btn active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-amber-400 text-black shadow-md cursor-pointer">
             সব বই (<span id="count-book-all">০</span>)
           </button>
-          <button type="button" onclick="filterBookshelf('reading')" data-book-tab="reading" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:text-amber-300 cursor-pointer">
+          <button type="button" onclick="filterBookshelf('reading')" data-book-tab="reading" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
             📖 এখন পড়ছি (<span id="count-book-reading">০</span>)
           </button>
-          <button type="button" onclick="filterBookshelf('completed')" data-book-tab="completed" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:text-emerald-300 cursor-pointer">
+          <button type="button" onclick="filterBookshelf('completed')" data-book-tab="completed" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
             ✅ পড়া শেষ (<span id="count-book-completed">০</span>)
           </button>
-          <button type="button" onclick="filterBookshelf('planned')" data-book-tab="planned" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:text-amber-300 cursor-pointer">
+          <button type="button" onclick="filterBookshelf('planned')" data-book-tab="planned" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer">
             📌 আগামীতে পড়ব (<span id="count-book-planned">০</span>)
           </button>
-          <button type="button" onclick="filterBookshelf('high')" data-book-tab="high" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border border-rose-500/30 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 cursor-pointer">
-            🔥 অত্যন্ত জরুরি
+          <button type="button" onclick="filterBookshelf('high')" data-book-tab="high" class="book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border border-amber-400/30 bg-amber-400/10 text-amber-300 hover:bg-amber-400 hover:text-black cursor-pointer">
+            🔥 জরুরি
           </button>
         </div>
 
@@ -610,7 +605,7 @@
         
         <header class="space-y-3 border-b theme-border pb-6">
           <div class="flex flex-wrap items-center gap-2 text-xs font-sans theme-muted">
-            <span id="article-category-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-medium"></span>
+            <span id="article-category-badge" class="px-2.5 py-0.5 rounded-md theme-card border theme-border text-amber-300 font-medium"></span>
             <span>·</span>
             <time id="article-date-display" class="font-bold text-amber-300"></time>
             <span>·</span>
@@ -639,10 +634,10 @@
 
         <!-- Social Share Bar -->
         <div class="pt-4 border-t theme-border flex items-center justify-between gap-3 text-xs">
-          <span class="text-emerald-400">✓ লেখাটি অফলাইনে সেভ রয়েছে</span>
+          <span class="text-amber-300/90 font-medium">✓ লেখাটি অফলাইনে সেভ রয়েছে</span>
           <div class="flex items-center gap-2">
-            <button type="button" onclick="shareArticleFacebook()" class="px-3 py-1 rounded-lg bg-[#1877F2] text-white font-semibold cursor-pointer">ফেসবুক</button>
-            <button type="button" onclick="shareArticleWhatsApp()" class="px-3 py-1 rounded-lg bg-[#25D366] text-white font-semibold cursor-pointer">হোয়াটসঅ্যাপ</button>
+            <button type="button" onclick="shareArticleFacebook()" class="px-3 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 font-medium cursor-pointer">ফেসবুক</button>
+            <button type="button" onclick="shareArticleWhatsApp()" class="px-3 py-1.5 rounded-xl border theme-border theme-card theme-muted hover:text-amber-300 font-medium cursor-pointer">হোয়াটসঅ্যাপ</button>
           </div>
         </div>
 
@@ -693,20 +688,20 @@
 
       <!-- Categories Sheet Button -->
       <button type="button" onclick="scrollToCategories()" class="flex flex-col items-center gap-0.5 theme-muted hover:theme-text cursor-pointer">
-        <span class="text-lg">📑</span>
-        <span class="text-[10px] font-medium">বিভাগসমূহ</span>
+        <span class="text-lg">📁</span>
+        <span class="text-[10px] font-medium">ক্যাটাগরি</span>
       </button>
 
       <!-- Bookshelf Button -->
       <a href="#bookshelf-section" class="flex flex-col items-center gap-0.5 theme-muted hover:theme-text">
         <span class="text-lg">📚</span>
-        <span class="text-[10px] font-medium">বুকশেলফ</span>
+        <span class="text-[10px] font-medium">কিতাব তাক</span>
       </a>
 
-      <!-- Install App Button -->
-      <button type="button" onclick="openInstallModal()" class="flex flex-col items-center gap-0.5 text-emerald-400 cursor-pointer">
-        <span class="text-lg">📲</span>
-        <span class="text-[10px] font-bold">ইনস্টল</span>
+      <!-- Instant Mobile Sync & Refresh -->
+      <button type="button" onclick="forceAppUpdate()" class="flex flex-col items-center gap-0.5 text-amber-300 cursor-pointer" title="নতুন আপডেট রিফ্রেশ">
+        <span class="text-lg">🔄</span>
+        <span class="text-[10px] font-bold">রিফ্রেশ</span>
       </button>
 
       <!-- Secret Studio Button -->
@@ -1393,22 +1388,20 @@
     updateLiveClock();
 
     // =======================================================================
-    // 3. 4-MODE THEME SYSTEM (Serene Botanical Green, Paper, Sepia, Night)
+    // 3. PURE & ARISTOCRATIC DUAL THEME SYSTEM (ডার্ক ও লাইট)
     // =======================================================================
-    const THEMES = ['theme-emerald', 'theme-paper', 'theme-sepia', 'theme-night'];
+    const THEMES = ['theme-dark', 'theme-light'];
     const THEME_NAMES = {
-      'theme-emerald': { label: 'সবুজ পাতা', icon: '🌿' },
-      'theme-paper': { label: 'দিন', icon: '☀️' },
-      'theme-sepia': { label: 'সেপিয়া', icon: '📜' },
-      'theme-night': { label: 'রাত', icon: '🌙' }
+      'theme-dark': { label: 'ডার্ক', icon: '🌙' },
+      'theme-light': { label: 'লাইট', icon: '☀️' }
     };
 
     function applyTheme(themeClass) {
-      document.documentElement.classList.remove(...THEMES);
+      document.documentElement.classList.remove(...THEMES, 'theme-emerald', 'theme-paper', 'theme-sepia', 'theme-night');
       document.documentElement.classList.add(themeClass);
       localStorage.setItem('canvas_theme', themeClass);
 
-      const info = THEME_NAMES[themeClass] || THEME_NAMES['theme-emerald'];
+      const info = THEME_NAMES[themeClass] || THEME_NAMES['theme-dark'];
       const themeIcon = document.getElementById('theme-icon');
       const themeLabel = document.getElementById('theme-label');
       if (themeIcon) themeIcon.textContent = info.icon;
@@ -1416,14 +1409,13 @@
     }
 
     function cycleTheme() {
-      let current = localStorage.getItem('canvas_theme') || 'theme-emerald';
-      const idx = THEMES.indexOf(current);
-      const next = THEMES[(idx + 1) % THEMES.length];
+      let current = localStorage.getItem('canvas_theme') || 'theme-dark';
+      const next = current === 'theme-dark' ? 'theme-light' : 'theme-dark';
       applyTheme(next);
-      showToast(`থিম: ${THEME_NAMES[next].label}`);
+      showToast(next === 'theme-dark' ? '🌙 ডার্ক মোড সক্রিয়' : '☀️ লাইট মোড সক্রিয়');
     }
 
-    applyTheme(localStorage.getItem('canvas_theme') || 'theme-emerald');
+    applyTheme(localStorage.getItem('canvas_theme') || 'theme-dark');
 
     // Language Toggle
     function toggleLanguage() {
@@ -1575,7 +1567,7 @@
           <article class="group rounded-2xl border theme-border theme-surface p-4 sm:p-5 shadow-sm hover:border-amber-400/40 hover:-translate-y-1 transition-all cursor-pointer flex flex-col justify-between" onclick="openFullArticle('${art.id}')">
             <div class="space-y-2.5">
               <div class="flex items-center justify-between text-xs theme-muted">
-                <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-medium text-[11px]">${cat.icon || '📁'} ${cat.name}</span>
+                <span class="px-2.5 py-0.5 rounded-md theme-card border theme-border text-amber-300 font-medium text-[11px]">${cat.icon || '📁'} ${cat.name}</span>
                 <span class="text-[11px] font-sans text-amber-300/90">${art.date}</span>
               </div>
               <h4 class="text-base sm:text-lg font-bold font-sans theme-text group-hover:text-amber-300 transition-colors leading-snug">
@@ -1990,15 +1982,15 @@
       container.innerHTML = filtered.map(book => {
         let statusBadge = '';
         if (book.status === 'reading') {
-          statusBadge = '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-400/10 text-amber-300 border border-amber-400/30">📖 এখন পড়ছি</span>';
+          statusBadge = '<span class="px-2.5 py-0.5 rounded-lg text-[11px] font-bold border border-amber-400/30 bg-amber-400/10 text-amber-300">📖 এখন পড়ছি</span>';
         } else if (book.status === 'completed') {
-          statusBadge = '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">✅ পড়া শেষ</span>';
+          statusBadge = '<span class="px-2.5 py-0.5 rounded-lg text-[11px] font-bold border theme-border theme-card theme-text">✅ পড়া শেষ</span>';
         } else {
-          statusBadge = '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-500/10 text-blue-300 border border-blue-500/30">📌 আগামীতে পড়ব</span>';
+          statusBadge = '<span class="px-2.5 py-0.5 rounded-lg text-[11px] font-medium border theme-border theme-card theme-muted">📌 আগামীতে পড়ব</span>';
         }
 
         const priorityBadge = book.priority === 'high' 
-          ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 text-rose-300 border border-rose-500/30">🔥 জরুরি</span>' 
+          ? '<span class="px-2 py-0.5 rounded-lg text-[10px] font-bold border border-amber-400/40 bg-amber-400/10 text-amber-300">🔥 জরুরি</span>' 
           : '';
 
         const stars = '⭐'.repeat(Math.min(5, Math.max(1, book.rating || 5)));
@@ -2018,14 +2010,14 @@
                 <h4 class="text-base sm:text-lg font-bold font-sans theme-text leading-snug">
                   ${book.title}
                 </h4>
-                <p class="text-xs text-emerald-400 font-sans mt-0.5">
+                <p class="text-xs text-amber-300 font-sans mt-0.5">
                   মূল লেখক: <strong>${book.writer || 'মুহিউদ্দীন মাআয'}</strong>
                 </p>
-                ${book.category ? `<span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] bg-white/5 border theme-border theme-muted">${book.category}</span>` : ''}
+                ${book.category ? `<span class="inline-block mt-1 px-2.5 py-0.5 rounded text-[10px] theme-card border theme-border theme-muted">${book.category}</span>` : ''}
               </div>
 
               ${book.notes ? `
-                <div class="p-3 rounded-xl border border-amber-400/20 bg-amber-400/5 text-xs theme-muted italic leading-relaxed">
+                <div class="p-3 rounded-xl border border-amber-400/20 theme-card text-xs theme-muted italic leading-relaxed">
                   "${book.notes}"
                 </div>
               ` : ''}
@@ -2047,9 +2039,9 @@
       document.querySelectorAll('.book-pill-btn').forEach(btn => {
         const tab = btn.getAttribute('data-book-tab');
         if (tab === filter) {
-          btn.className = 'book-pill-btn active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-emerald-500 text-black shadow-md cursor-pointer';
+          btn.className = 'book-pill-btn active px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap bg-amber-400 text-black shadow-md cursor-pointer';
         } else {
-          btn.className = 'book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:text-amber-300 cursor-pointer';
+          btn.className = 'book-pill-btn px-3.5 py-1.5 rounded-full font-medium whitespace-nowrap border theme-border theme-card theme-muted hover:border-amber-400 hover:text-amber-300 cursor-pointer';
         }
       });
       renderBookshelfGrid();
@@ -2417,10 +2409,47 @@
       draw();
     }
 
-    // Register Real Service Worker for Native PWA
+    // =======================================================================
+    // 7. INSTANT MOBILE FORCE REFRESH & SERVICE WORKER SYNC
+    // =======================================================================
+    function forceAppUpdate() {
+      showToast('🔄 ক্যাশ পরিষ্কার করে নতুন সংস্করণ লোড হচ্ছে...');
+      if ('caches' in window) {
+        caches.keys().then((names) => {
+          return Promise.all(names.map(name => caches.delete(name)));
+        }).then(() => {
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then((regs) => {
+              return Promise.all(regs.map(reg => reg.unregister()));
+            }).then(() => {
+              window.location.href = window.location.origin + window.location.pathname + '?refresh=' + Date.now();
+            });
+          } else {
+            window.location.href = window.location.origin + window.location.pathname + '?refresh=' + Date.now();
+          }
+        });
+      } else {
+        window.location.href = window.location.origin + window.location.pathname + '?refresh=' + Date.now();
+      }
+    }
+
+    // Register Real Service Worker for Native PWA with Instant Update Hook
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch((err) => console.log('SW register non-fatal:', err));
+        navigator.serviceWorker.register('./sw.js?v=20261011_v6_clean', { updateViaCache: 'none' })
+          .then((reg) => {
+            // Check for updates on every page view
+            reg.update();
+          })
+          .catch((err) => console.log('SW register non-fatal:', err));
+
+        let reloading = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!reloading) {
+            reloading = true;
+            window.location.reload();
+          }
+        });
       });
     }
 
