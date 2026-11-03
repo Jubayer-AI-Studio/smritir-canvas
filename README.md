@@ -1,30 +1,30 @@
 <div align="center">
 
-  <h1>📖 স্মৃতির ক্যানভাস (Smritir Canvas)</h1>
-  <p><b>মুহিউদ্দীন মাআয-এর সাহিত্যিক ব্লগ, কিতাব তাক ও চিন্তার নিভৃত আঙিনা</b></p>
+  <h1>📖 Smritir Canvas (স্মৃতির ক্যানভাস)</h1>
+  <p><b>Digital Literary Canvas, Essay Archive & Book Showcase for Author Muhyiuddin Maaz</b></p>
 
-  [![HTML5](https://img.shields.io/badge/HTML5-Modern_Markup-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+  [![HTML5](https://img.shields.io/badge/HTML5-Modern_Semantic-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
   [![CSS3](https://img.shields.io/badge/CSS3-Responsive_Typography-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-  [![PWA](https://img.shields.io/badge/PWA-Standalone_App-5A0FC8?style=for-the-badge&logo=pwa)](https://web.dev/progressive-web-apps/)
+  [![PWA](https://img.shields.io/badge/PWA-Standalone_Ready-5A0FC8?style=for-the-badge&logo=pwa)](https://web.dev/progressive-web-apps/)
 
 </div>
 
 ---
 
-## 🌟 পরিচিতি
+## 🌟 1. System Overview
 
-**স্মৃতির ক্যানভাস** হলো লেখক মুহিউদ্দীন মাআয-এর সাহিত্যিক রচনা, কিতাব পর্যালোচনা এবং জীবন-ভাবনার একটি নিভৃত ডিজিটাল ক্যানভাস। পরিচ্ছন্ন ও নান্দনিক টাইপোগ্রাফি নিশ্চিত করে পাঠককে দেওয়া হয়েছে ডিস্ট্র্যাকশন-ফ্রি রিডিং এক্সপেরিয়েন্স।
+**Smritir Canvas** is a distraction-free digital reading platform and literary anthology showcasing the essays, memoirs, and book reviews of author Muhyiuddin Maaz. Designed with a dark emerald aesthetic (`#081410`) and high-contrast typography, it provides a book-grade reading experience across mobile and desktop devices.
 
 ---
 
-## 🌿 বৈশিষ্ট্যসমূহ
+## 🌿 2. Architecture & Design Highlights
 
-* **নান্দনিক ডার্ক এমারেল্ড থিম:** চোখের আরামদায়ক প্যালেট (`#081410`) ও ক্ল্যাসিক ফন্ট রেন্ডারিং।
-* **PWA অফলাইন সুবিধা:** সরাসরি মোবাইল বা ডেস্কটপে ইনস্টলযোগ্য এবং ইন্টারনেট ছাড়াও লেখা পড়া সম্ভব।
-* **কিতাব তাক ও ক্যাটাগরি:** প্রবন্ধ, স্মৃতিকথা এবং কিতাবের রিভিউ সুবিন্যস্ত সূচিপত্রে সাজানো।
+* **Distraction-Free Reading Canvas:** Pure typographic layout engineered for immersive long-form reading with zero clutter.
+* **PWA Standalone Offline Engine:** Full Service Worker caching enables offline article reading even when internet connectivity drops.
+* **Curated Bookcase & Catalogs:** Categorized index for memoirs, literary essays, theological reflections, and book reviews.
 
 ---
 
 <div align="center">
-  <b>Architecture & Design by Jubayer Ahmad</b>
+  <b>Designed & Architected by Jubayer Ahmad — Senior Full-Stack Systems Architect</b>
 </div>
